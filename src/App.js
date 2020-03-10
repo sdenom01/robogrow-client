@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+    BrowserRouter as Router,
+    withRouter,
+    Switch,
+    Route
+} from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import "bootswatch/dist/slate/bootstrap.min.css";
+
+import {history} from './_helpers/history';
+import {authenticationService} from './_services/authentication.service';
+
+import {PrivateRoute} from './_components/PrivateRoute';
+import LoginPage from './Login/Login';
+import Home from "./Home/Home";
+import Grows from "./Grows/Grows";
+import GrowDetails from "./GrowDetails/GrowDetails";
+
+export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            currentUser: null
+        };
+    }
+
+    componentDidMount() {
+        authenticationService.currentUser.subscribe(x => this.setState({currentUser: x}));
+    }
+
+    render() {
+        return (
+            <Router>
+                <Switch>
+                    <Route path="/login">
+                        <LoginPage/>
+                    </Route>
+
+
+                    <PrivateRoute path="/grows/:growId" component={GrowDetails}/>
+                    <PrivateRoute path="/grows" component={Grows}/>
+
+                    <PrivateRoute path="/" component={Home}/>
+                </Switch>
+            </Router>
+        );
+    }
 }
-
-export default App;
