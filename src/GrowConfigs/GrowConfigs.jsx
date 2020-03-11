@@ -1,10 +1,10 @@
 import React from "react";
 import Carousel from "react-bootstrap/Carousel";
 import {growService} from '../_services/grow.service';
-import "./grows.css";
+import "./growConfigs.css";
 import Nav from "../Navigation/Nav";
 
-export default class Grows extends React.Component {
+export default class GrowConfigs extends React.Component {
     constructor(props) {
         super(props);
 

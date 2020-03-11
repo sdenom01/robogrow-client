@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 
 import {authenticationService} from '../_services/authentication.service';
 
-class LoginPage extends React.Component {
+class RegisterPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -17,19 +17,23 @@ class LoginPage extends React.Component {
 
     render() {
         return (
-            <div className="container ml-auto mr-auto card p-4 shadow" style={{width: "530px", marginTop: "10%"}}>
+            <div className="container ml-auto mr-auto card p-4 shadow" style={{width: "550px", marginTop: "10%"}}>
                 <Formik
                     initialValues={{
+                        username: '',
                         email: '',
-                        password: ''
+                        password: '',
+                        confirmPassword: ''
                     }}
                     validationSchema={Yup.object().shape({
+                        username: Yup.string().required('Username is required'),
                         email: Yup.string().required('Email is required'),
-                        password: Yup.string().required('Password is required')
+                        password: Yup.string().required('Password is required'),
+                        confirmPassword: Yup.string().required('Confirm password is required')
                     })}
-                    onSubmit={({email, password}, {setStatus, setSubmitting}) => {
+                    onSubmit={({username, email, password, confirmPassword}, {setStatus, setSubmitting}) => {
                         setStatus();
-                        authenticationService.login(email, password)
+                        authenticationService.register(username, email, password, confirmPassword)
                             .then(
                                 user => {
                                     const {from} = this.props.location.state || {from: {pathname: "/"}};
@@ -44,6 +48,12 @@ class LoginPage extends React.Component {
                     render={({errors, status, touched, isSubmitting}) => (
                         <Form>
                             <div className="form-group">
+                                <label htmlFor="username">Username</label>
+                                <Field name="username" type="text"
+                                       className={'form-control' + (errors.username && touched.username ? ' is-invalid' : '')}/>
+                                <ErrorMessage name="username" component="div" className="invalid-feedback"/>
+                            </div>
+                            <div className="form-group">
                                 <label htmlFor="email">Email</label>
                                 <Field name="email" type="text"
                                        className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')}/>
@@ -56,7 +66,13 @@ class LoginPage extends React.Component {
                                 <ErrorMessage name="password" component="div" className="invalid-feedback"/>
                             </div>
                             <div className="form-group">
-                                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Login</button>
+                                <label htmlFor="confirmPassword">Confirm Password</label>
+                                <Field name="confirmPassword" type="confirmPassword"
+                                       className={'form-control' + (errors.confirmPassword && touched.confirmPassword ? ' is-invalid' : '')}/>
+                                <ErrorMessage name="confirmPassword" component="div" className="invalid-feedback"/>
+                            </div>
+                            <div className="form-group">
+                                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Register</button>
                                 {
                                     isSubmitting &&
                                     <img
@@ -64,8 +80,8 @@ class LoginPage extends React.Component {
                                 }
                             </div>
                             <div className="form-group">
-                                <a className="float-right" href="/register">
-                                    Need to register?
+                                <a className="float-right" href="/login">
+                                    Already have an account?
                                 </a>
                             </div>
                             {
@@ -82,4 +98,4 @@ class LoginPage extends React.Component {
     }
 }
 
-export default withRouter(LoginPage);
+export default withRouter(RegisterPage);

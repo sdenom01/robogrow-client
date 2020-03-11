@@ -12,6 +12,7 @@ import {history} from './_helpers/history';
 import {authenticationService} from './_services/authentication.service';
 
 import {PrivateRoute} from './_components/PrivateRoute';
+import RegisterPage from './Register/Register';
 import LoginPage from './Login/Login';
 import Home from "./Home/Home";
 import Grows from "./Grows/Grows";
@@ -34,6 +35,10 @@ export default class App extends React.Component {
         return (
             <Router>
                 <Switch>
+                    <Route path="/register">
+                        <RegisterPage/>
+                    </Route>
+
                     <Route path="/login">
                         <LoginPage/>
                     </Route>

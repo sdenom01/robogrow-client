@@ -71,14 +71,15 @@ export default class GrowDetails extends React.Component {
             <div>
                 <Nav/>
 
-                <div className="container-fluid bg-3" style={{paddingTop: "100px"}}>
+                <div className="container-fluid" style={{paddingTop: "100px"}}>
                     <div className="row">
                         <div className="ml-auto mr-auto">
                             <h4>{this.state.grow.name}</h4>
                         </div>
                     </div>
+
                     <div className="row">
-                        <div className="col-6 ml-auto mr-auto">
+                        <div className="col-10 ml-auto mr-auto">
                             <Line
                                 data={data}
                                 width={100}
@@ -121,6 +122,28 @@ export default class GrowDetails extends React.Component {
                                         }
                                     }
                                 }}/>
+                        </div>
+                    </div>
+                    <div className="container">
+                        <div className="row form-group">
+                            <div className="col-4">
+                                <div className="card mr-2 p-2 text-center">
+                                    <h5>Number of Plants</h5>
+                                    <h1>6</h1>
+                                </div>
+                            </div>
+                            <div className="col-4">
+                                <div className="card mr-2 p-2 text-center">
+                                    <h5>Light Status</h5>
+                                    <h1 style={{color: "green"}}>ON</h1>
+                                </div>
+                            </div>
+                            <div className="col-4">
+                                <div className="card mr-2 p-2 text-center">
+                                    <h5>Temperature / Humidity</h5>
+                                    <h1 style={{color: "green"}}>OK</h1>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
