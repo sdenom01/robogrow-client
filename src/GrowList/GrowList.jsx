@@ -1,10 +1,10 @@
 import React from "react";
 import Carousel from "react-bootstrap/Carousel";
 import {growService} from '../_services/grow.service';
-import "./grows.css";
+import "./growList.css";
 import Nav from "../Navigation/Nav";
 
-export default class Grows extends React.Component {
+export default class GrowList extends React.Component {
     constructor(props) {
         super(props);
 
@@ -52,6 +52,14 @@ export default class Grows extends React.Component {
                                 </div>
                             )
                         )}
+
+                        <div className="col-sm-3">
+                            <a href={"/grows/new"}>
+                                <div className="card p-3 shadow">
+                                    <img className="m-auto" style={{width: "130px", height: "130px"}} src="https://png.icons8.com/ios/1600/007AFF/plus"/>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

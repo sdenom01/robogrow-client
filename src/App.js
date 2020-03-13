@@ -15,7 +15,7 @@ import {PrivateRoute} from './_components/PrivateRoute';
 import RegisterPage from './Register/Register';
 import LoginPage from './Login/Login';
 import Home from "./Home/Home";
-import Grows from "./Grows/Grows";
+import GrowList from "./GrowList/GrowList";
 import GrowDetails from "./GrowDetails/GrowDetails";
 
 export default class App extends React.Component {
@@ -43,9 +43,9 @@ export default class App extends React.Component {
                         <LoginPage/>
                     </Route>
 
-
+                    <PrivateRoute path="/grows/new" component={GrowList}/>
                     <PrivateRoute path="/grows/:growId" component={GrowDetails}/>
-                    <PrivateRoute path="/grows" component={Grows}/>
+                    <PrivateRoute path="/grows" component={GrowList}/>
 
                     <PrivateRoute path="/" component={Home}/>
                 </Switch>

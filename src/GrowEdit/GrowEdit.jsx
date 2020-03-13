@@ -1,6 +1,6 @@
 import React from "react";
 import {growService} from '../_services/grow.service';
-import "./growDetails.css";
+import "./growEdit.css";
 import Nav from "../Navigation/Nav";
 
 import {Line} from 'react-chartjs-2';
@@ -52,7 +52,7 @@ const data = {
     ]
 };
 
-export default class GrowDetails extends React.Component {
+export default class GrowEdit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
