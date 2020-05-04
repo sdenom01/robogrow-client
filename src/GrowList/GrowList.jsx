@@ -25,6 +25,17 @@ export default class GrowList extends React.Component {
 
                 <div className="container-fluid bg-3" style={{paddingTop: "100px"}}>
                     <div className="row">
+                        <div className="col-sm-3">
+                            <a href={"/grows/new"}>
+                                <div className="card shadow p-3 text-center view overlay">
+                                    <img className="m-auto" style={{width: "95px", height: "95px"}} src="./new_grow.png"/>
+                                    <div className="mask flex-center rgba-red-strong">
+                                        <p className="white-text">New Grow</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
                         {this.state.grows.map((grow) =>
                             (
                                 <div className="col-sm-3">
@@ -52,14 +63,6 @@ export default class GrowList extends React.Component {
                                 </div>
                             )
                         )}
-
-                        <div className="col-sm-3">
-                            <a href={"/grows/new"}>
-                                <div className="card p-3 shadow">
-                                    <img className="m-auto" style={{width: "130px", height: "130px"}} src="https://png.icons8.com/ios/1600/007AFF/plus"/>
-                                </div>
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>

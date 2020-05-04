@@ -17,6 +17,7 @@ import LoginPage from './Login/Login';
 import Home from "./Home/Home";
 import GrowList from "./GrowList/GrowList";
 import GrowDetails from "./GrowDetails/GrowDetails";
+import GrowEdit from "./GrowEdit/GrowEdit";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -43,7 +44,8 @@ export default class App extends React.Component {
                         <LoginPage/>
                     </Route>
 
-                    <PrivateRoute path="/grows/new" component={GrowList}/>
+                    <PrivateRoute path="/grows/new" component={GrowEdit}/>
+                    <PrivateRoute path="/grows/:growId/edit" component={GrowEdit}/>
                     <PrivateRoute path="/grows/:growId" component={GrowDetails}/>
                     <PrivateRoute path="/grows" component={GrowList}/>
 

@@ -67,112 +67,124 @@ export default class GrowDetails extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                <Nav/>
+        if (this.state.grow._id) {
+            return (
+                <div>
+                    <Nav/>
 
-                <div className="container-fluid" style={{paddingTop: "100px"}}>
-                    <div className="row">
-                        <div className="ml-auto mr-auto">
-                            <h4>{this.state.grow.name}</h4>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="col-10 ml-auto mr-auto">
-                            <Line
-                                data={data}
-                                width={100}
-                                height={300}
-                                options={{
-                                    maintainAspectRatio: false,
-                                    scales: {
-                                        xAxes: [{
-                                            display: true,
-                                            gridLines: {
-                                                color: "#727272"
-                                            },
-                                            scaleLabel: {
-                                                display: true,
-                                                labelString: 'Month',
-                                                fontColor: 'white'
-                                            },
-                                            ticks: {
-                                                fontColor: "white", // this here
-                                            }
-                                        }],
-                                        yAxes: [{
-                                            display: true,
-                                            gridLines: {
-                                                color: "#727272"
-                                            },
-                                            scaleLabel: {
-                                                display: true,
-                                                labelString: 'Value',
-                                                fontColor: 'white'
-                                            },
-                                            ticks: {
-                                                fontColor: "white", // this here
-                                            }
-                                        }]
-                                    },
-                                    legend: {
-                                        labels: {
-                                            fontColor: 'white'
-                                        }
-                                    }
-                                }}/>
-                        </div>
-                    </div>
-                    <div className="container">
-                        <label>Details</label>
-
-                        <div className="row mb-4">
-                            <div className="col-4">
-                                <div className="card mr-2 p-2 text-center">
-                                    <h5>Light Status</h5>
-                                    <h5 style={{color: "green"}}>ON</h5>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card mr-2 p-2 text-center">
-                                    <h5>Temperature</h5>
-                                    <h5 style={{color: "red"}}>HOT</h5>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card mr-2 p-2 text-center">
-                                    <h5>Humidity</h5>
-                                    <h5 style={{color: "green"}}>OK</h5>
+                    <div className="container-fluid" style={{paddingTop: "100px"}}>
+                        <div className="row">
+                            <div className="ml-auto mr-auto row">
+                                <h4 className="mt-auto mb-auto">{this.state.grow.name}</h4>
+                                <div className="ml-4">
+                                    <button className="btn btn-info p-2 mr-2"
+                                            onClick={() => {
+                                                window.location = "/grows/" + this.props.match.params.growId + "/edit"
+                                            }}>
+                                        Edit
+                                    </button>
                                 </div>
                             </div>
                         </div>
-
-                        <label>Configuration</label>
 
                         <div className="row">
-                            <div className="col-4">
-                                <div className="card mr-2 p-2 text-center">
-                                    <h5>Light Schedule</h5>
-                                    <h5>{(this.state.grow && this.state.grow.config) ? (this.state.grow.config.lightsOn + ' - ' + this.state.grow.config.lightsOff) : 'N/A'}</h5>
+                            <div className="col-10 ml-auto mr-auto">
+                                <Line
+                                    data={data}
+                                    width={100}
+                                    height={300}
+                                    options={{
+                                        maintainAspectRatio: false,
+                                        scales: {
+                                            xAxes: [{
+                                                display: true,
+                                                gridLines: {
+                                                    color: "#727272"
+                                                },
+                                                scaleLabel: {
+                                                    display: true,
+                                                    labelString: 'Month',
+                                                    fontColor: 'white'
+                                                },
+                                                ticks: {
+                                                    fontColor: "white", // this here
+                                                }
+                                            }],
+                                            yAxes: [{
+                                                display: true,
+                                                gridLines: {
+                                                    color: "#727272"
+                                                },
+                                                scaleLabel: {
+                                                    display: true,
+                                                    labelString: 'Value',
+                                                    fontColor: 'white'
+                                                },
+                                                ticks: {
+                                                    fontColor: "white", // this here
+                                                }
+                                            }]
+                                        },
+                                        legend: {
+                                            labels: {
+                                                fontColor: 'white'
+                                            }
+                                        }
+                                    }}/>
+                            </div>
+                        </div>
+                        <div className="container">
+                            <label>Details</label>
+
+                            <div className="row mb-4">
+                                <div className="col-4">
+                                    <div className="card shadow mr-2 p-2 text-center">
+                                        <h5>Light Status</h5>
+                                        <h5 style={{color: "green"}}>ON</h5>
+                                    </div>
+                                </div>
+                                <div className="col-4">
+                                    <div className="card shadow mr-2 p-2 text-center">
+                                        <h5>Temperature</h5>
+                                        <h5 style={{color: "red"}}>HOT</h5>
+                                    </div>
+                                </div>
+                                <div className="col-4">
+                                    <div className="card shadow mr-2 p-2 text-center">
+                                        <h5>Humidity</h5>
+                                        <h5 style={{color: "green"}}>OK</h5>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="col-4">
-                                <div className="card mr-2 p-2 text-center">
-                                    <h5>Temperature Range</h5>
-                                    <h5>{(this.state.grow && this.state.grow.config) ? (this.state.grow.config.tempLow + ' - ' + this.state.grow.config.tempHigh) : 'N/A'}</h5>
+
+                            <label>Configuration</label>
+
+                            <div className="row">
+                                <div className="col-4">
+                                    <div className="card shadow mr-2 p-2 text-center">
+                                        <h5>Light Schedule</h5>
+                                        <h5>{(this.state.grow && this.state.grow.config) ? (this.state.grow.config.lightsOn + ' - ' + this.state.grow.config.lightsOff) : 'N/A'}</h5>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card mr-2 p-2 text-center">
-                                    <h5>Humidity Range</h5>
-                                    <h5>{(this.state.grow && this.state.grow.config) ? (this.state.grow.config.humidityLow + ' - ' + this.state.grow.config.humidityHigh) : 'N/A'}</h5>
+                                <div className="col-4">
+                                    <div className="card shadow mr-2 p-2 text-center">
+                                        <h5>Temperature Range</h5>
+                                        <h5>{(this.state.grow && this.state.grow.config) ? (this.state.grow.config.tempLow + ' - ' + this.state.grow.config.tempHigh) : 'N/A'}</h5>
+                                    </div>
+                                </div>
+                                <div className="col-4">
+                                    <div className="card shadow mr-2 p-2 text-center">
+                                        <h5>Humidity Range</h5>
+                                        <h5>{(this.state.grow && this.state.grow.config) ? (this.state.grow.config.humidityLow + ' - ' + this.state.grow.config.humidityHigh) : 'N/A'}</h5>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        } else {
+            return (<div>Sorry! That grow cannot be found!</div>);
+        }
     }
 }
