@@ -1,15 +1,10 @@
 import React from "react";
-import Carousel from "react-bootstrap/Carousel";
-import {authenticationService} from '../_services/authentication.service';
-import Nav from '../Navigation/Nav';
 import "./home.css";
 
 export default class App extends React.Component {
     render() {
         return (
             <div>
-                <Nav/>
-
                 <div className="col-sm-12" style={{paddingTop: "100px"}}>
                     <div className="row m-4">
                         <div className="col-sm-12">
