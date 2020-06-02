@@ -34,9 +34,6 @@ export default class GrowConfigDetails extends React.Component {
     }
 
     updateConfiguration(obj) {
-        console.log("Update Config " + obj.type);
-        console.log(obj.value);
-
         if (obj.type === 'temperature') {
             this.setState({
                 tempValue: obj.value

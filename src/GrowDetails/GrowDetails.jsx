@@ -9,38 +9,48 @@ export default class GrowDetails extends React.Component {
         super(props);
         this.state = {
             grow: {},
-            data: []
+            primaryData: []
         };
 
-        this.parseGraphData = this.parseGraphData.bind(this);
+        this.parsePrimaryGraphData = this.parsePrimaryGraphData.bind(this);
         this.currentTimeWithinRange = this.currentTimeWithinRange.bind(this);
         this.currentTempWithinRange = this.currentTempWithinRange.bind(this);
-        this.currentHumidityWithinRange= this.currentHumidityWithinRange.bind(this);
+        this.currentHumidityWithinRange = this.currentHumidityWithinRange.bind(this);
     }
 
     componentDidMount() {
         const {growId} = this.props.match.params;
 
-        growService.getById(growId).then(grow =>
-            this.setState({
-                grow: grow,
-                data: this.parseGraphData(grow),
-                currentEvent: grow.events[grow.events.length - 1]
-            })
+        growService.getById(growId).then(grow => {
+                let labels = [];
+                let dataTemp = [];
+                let dataHumidity = [];
+                let dataInfrared = [];
+                let dataLux = [];
+
+                grow.events.forEach((event) => {
+                    labels.push(event.createDate);
+                    dataTemp.push(event.temp);
+                    dataHumidity.push(event.humidity);
+                    dataInfrared.push(event.infrared);
+                    dataLux.push(event.lux);
+                });
+
+                this.setState({
+                    grow: grow,
+                    primaryData: this.parsePrimaryGraphData(labels, dataTemp, dataHumidity),
+                    secondaryData: this.parseSecondaryGraphData(labels, dataInfrared, dataLux),
+                    currentEvent: grow.events[grow.events.length - 1]
+                }, function () {
+                    console.log("SET PRIMARY AND SECONDARY DATA");
+                    console.log(this.state.primaryData);
+                    console.log(this.state.secondaryData);
+                })
+            }
         )
     }
 
-    parseGraphData(grow) {
-        let labels = [];
-        let dataTemp = [];
-        let dataHumidity = [];
-
-        grow.events.forEach((event) => {
-            labels.push(event.createDate)
-            dataTemp.push(event.temp)
-            dataHumidity.push(event.humidity)
-        });
-
+    parsePrimaryGraphData(labels, dataTemp, dataHumidity) {
         return ({
             labels: labels,
             datasets: [
@@ -84,6 +94,55 @@ export default class GrowDetails extends React.Component {
                     pointRadius: 1,
                     pointHitRadius: 10,
                     data: dataHumidity
+                }
+            ]
+        })
+    }
+
+    parseSecondaryGraphData(labels, dataInfrared, dataLux) {
+        return ({
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Infrared',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: 'rgba(75,192,192,0.4)',
+                    borderColor: 'rgba(255, 86, 86, 1)',
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: 'rgba(255, 86, 86, 1)',
+                    pointBackgroundColor: 'rgba(255, 86, 86, 1)',
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: 'rgba(85, 101, 193,1)',
+                    pointHoverBorderColor: 'rgba(255, 86, 86, 1)',
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: dataInfrared
+                }, {
+                    label: 'Lux',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: 'rgba(75,192,192,0.4)',
+                    borderColor: 'rgba(255, 249, 86, 1)',
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: 'rgba(255, 249, 86, 1)',
+                    pointBackgroundColor: 'rgba(255, 249, 86, 1)',
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: 'rgba(85, 101, 193,1)',
+                    pointHoverBorderColor: 'rgba(255, 249, 86, 1)',
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: dataLux
                 }
             ]
         })
@@ -150,6 +209,15 @@ export default class GrowDetails extends React.Component {
             var temperatureStatus = this.currentTempWithinRange();
             var humidityStatus = this.currentHumidityWithinRange();
 
+            let hrStyle = {
+                border: 0,
+                clear: "both",
+                display: "block",
+                width: "96%",
+                backgroundColor: "#333",
+                height: "1px"
+            };
+
             return (
                 <div className="mt-5">
                     <div className="container pt-4">
@@ -169,64 +237,126 @@ export default class GrowDetails extends React.Component {
 
                         <div className="pt-3">
                             <div className="row">
-                                <div className="col-10 ml-auto mr-auto">
-                                    <Line
-                                        data={this.state.data}
-                                        width={100}
-                                        height={300}
-                                        options={{
-                                            maintainAspectRatio: false,
-                                            scales: {
-                                                xAxes: [{
-                                                    display: true,
-                                                    gridLines: {
-                                                        color: "#727272"
-                                                    },
-                                                    scaleLabel: {
+                                <div className="col-10 ">
+                                    <div className="ml-auto mr-auto ">
+                                        <Line
+                                            data={this.state.primaryData}
+                                            width={100}
+                                            height={300}
+                                            options={{
+                                                maintainAspectRatio: false,
+                                                scales: {
+                                                    xAxes: [{
                                                         display: true,
-                                                        labelString: 'Month',
-                                                        fontColor: 'white'
-                                                    },
-                                                    ticks: {
-                                                        fontColor: "white", // this here
-                                                    }
-                                                }],
-                                                yAxes: [{
-                                                    display: true,
-                                                    gridLines: {
-                                                        color: "#727272"
-                                                    },
-                                                    scaleLabel: {
+                                                        gridLines: {
+                                                            color: "#727272"
+                                                        },
+                                                        scaleLabel: {
+                                                            display: true,
+                                                            labelString: 'Month',
+                                                            fontColor: 'white'
+                                                        },
+                                                        ticks: {
+                                                            fontColor: "white", // this here
+                                                        }
+                                                    }],
+                                                    yAxes: [{
                                                         display: true,
-                                                        labelString: 'Value',
+                                                        gridLines: {
+                                                            color: "#727272"
+                                                        },
+                                                        scaleLabel: {
+                                                            display: true,
+                                                            labelString: 'Value',
+                                                            fontColor: 'white'
+                                                        },
+                                                        ticks: {
+                                                            fontColor: "white", // this here
+                                                        }
+                                                    }]
+                                                },
+                                                legend: {
+                                                    labels: {
                                                         fontColor: 'white'
-                                                    },
-                                                    ticks: {
-                                                        fontColor: "white", // this here
                                                     }
-                                                }]
-                                            },
-                                            legend: {
-                                                labels: {
-                                                    fontColor: 'white'
                                                 }
-                                            }
-                                        }}/>
+                                            }}/>
+                                    </div>
+                                    <div className="ml-auto mr-auto">
+                                        <Line
+                                            data={this.state.secondaryData}
+                                            width={100}
+                                            height={300}
+                                            options={{
+                                                maintainAspectRatio: false,
+                                                scales: {
+                                                    xAxes: [{
+                                                        display: true,
+                                                        gridLines: {
+                                                            color: "#727272"
+                                                        },
+                                                        scaleLabel: {
+                                                            display: true,
+                                                            labelString: 'Month',
+                                                            fontColor: 'white'
+                                                        },
+                                                        ticks: {
+                                                            fontColor: "white", // this here
+                                                        }
+                                                    }],
+                                                    yAxes: [{
+                                                        display: true,
+                                                        gridLines: {
+                                                            color: "#727272"
+                                                        },
+                                                        scaleLabel: {
+                                                            display: true,
+                                                            labelString: 'Value',
+                                                            fontColor: 'white'
+                                                        },
+                                                        ticks: {
+                                                            fontColor: "white", // this here
+                                                        }
+                                                    }]
+                                                },
+                                                legend: {
+                                                    labels: {
+                                                        fontColor: 'white'
+                                                    }
+                                                }
+                                            }}/>
+                                    </div>
                                 </div>
+
                                 <div className="col-2 m-auto">
                                     <label></label>
 
                                     <div className="row mb-4">
-                                        <div className="col-12">
+                                        <div className="col-12 p-2">
                                             <div className="p-2 text-center">
                                                 <h5>Temperature</h5>
                                                 <h1 className="text-info">{this.state.currentEvent.temp}</h1>
                                             </div>
                                         </div>
-                                        <div className="col-12">
+                                        <div className="col-12 p-2">
                                             <div className="mt-4 p-2 text-center">
                                                 <h5>Humidity</h5>
                                                 <h1 className="text-info">{this.state.currentEvent.humidity}</h1>
+                                            </div>
+                                        </div>
+
+                                        <hr style={hrStyle}/>
+
+                                        <div className="col-12 p-2">
+                                            <div className="p-2 text-center">
+                                                <h5>Infrared</h5>
+                                                <h1 className="text-info">{this.state.currentEvent.infrared}</h1>
+                                            </div>
+                                        </div>
+                                        <div className="col-12 p-2">
+                                            <div className="mt-4 p-2 text-center">
+                                                <h5>Lux</h5>
+                                                <h1 className="text-info">{this.state.currentEvent.lux}</h1>
                                             </div>
                                         </div>
                                     </div>
