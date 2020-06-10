@@ -4,6 +4,8 @@ import "./growDetails.css";
 
 import {Line} from 'react-chartjs-2';
 
+import dateFormat from 'dateformat';
+
 export default class GrowDetails extends React.Component {
     constructor(props) {
         super(props);
@@ -29,7 +31,7 @@ export default class GrowDetails extends React.Component {
                 let dataLux = [];
 
                 grow.events.forEach((event) => {
-                    labels.push(event.createDate);
+                    labels.push(dateFormat(event.createDate, "h:MM:ss TT"));
                     dataTemp.push(event.temp);
                     dataHumidity.push(event.humidity);
                     dataInfrared.push(event.infrared);
@@ -148,23 +150,34 @@ export default class GrowDetails extends React.Component {
         })
     }
 
+    getMinutes(str) {
+        var time = str.split(':');
+        return time[0] * 60 + time[1] * 1;
+    }
+
+    getMinutesNow() {
+        var timeNow = new Date();
+        return timeNow.getHours() * 60 + timeNow.getMinutes();
+    }
+
     currentTimeWithinRange() {
-        var startTime = this.state.grow.config.lightsOn;
-        var endTime = this.state.grow.config.lightsOff;
-        var currentDate = new Date();
+        if (this.state.grow && this.state.grow.config && this.state.grow.config.relaySchedules) {
+            // TODO Make this dynamic!
+            var startTime = this.state.grow.config.relaySchedules[0].events[0].triggerTime;
+            var endTime = this.state.grow.config.relaySchedules[0].events[1].triggerTime;
+            var currentDate = new Date();
 
-        var startDate = new Date(currentDate.getTime());
-        startDate.setHours(startTime.split(":")[0]);
-        startDate.setMinutes(startTime.split(":")[1]);
-        startDate.setSeconds(startTime.split(":")[2]);
+            console.log(startTime, endTime, currentDate);
+            var now = this.getMinutesNow();
+            var start = this.getMinutes('10:00');
+            var end = this.getMinutes('2:00');
+            if (start > end) end += this.getMinutes('24:00');
 
-        var endDate = new Date(currentDate.getTime());
-        endDate.setHours(endTime.split(":")[0]);
-        endDate.setMinutes(endTime.split(":")[1]);
-        endDate.setSeconds(endTime.split(":")[2]);
-
-        var isValid = (startDate < currentDate && endDate > currentDate);
-        return (isValid) ? 'ON' : 'OFF';
+            var isValid = (now > start) && (now < end);
+            return (isValid) ? 'ON' : 'OFF';
+        } else {
+            return 'ERR';
+        }
     }
 
     currentTempWithinRange() {
@@ -214,7 +227,6 @@ export default class GrowDetails extends React.Component {
                 clear: "both",
                 display: "block",
                 width: "96%",
-                backgroundColor: "#333",
                 height: "1px"
             };
 
@@ -230,6 +242,12 @@ export default class GrowDetails extends React.Component {
                                                 window.location = "/grows/" + this.props.match.params.growId + "/edit"
                                             }}>
                                         Edit
+                                    </button>
+                                    <button className="btn p-2 mr-2"
+                                            onClick={() => {
+                                                window.location = "/grows/" + this.props.match.params.growId + "/timeline"
+                                            }}>
+                                        Timeline
                                     </button>
                                 </div>
                             </div>
@@ -282,7 +300,7 @@ export default class GrowDetails extends React.Component {
                                                 }
                                             }}/>
                                     </div>
-                                    <div className="ml-auto mr-auto">
+                                    <div className="ml-auto mr-auto mt-4">
                                         <Line
                                             data={this.state.secondaryData}
                                             width={100}
@@ -329,19 +347,17 @@ export default class GrowDetails extends React.Component {
                                 </div>
 
                                 <div className="col-2 m-auto">
-                                    <label></label>
-
                                     <div className="row mb-4">
                                         <div className="col-12 p-2">
                                             <div className="p-2 text-center">
                                                 <h5>Temperature</h5>
-                                                <h1 className="text-info">{this.state.currentEvent.temp}</h1>
+                                                <h1 className="text-info">{this.state.currentEvent.temp}&#730;</h1>
                                             </div>
                                         </div>
                                         <div className="col-12 p-2">
                                             <div className="mt-4 p-2 text-center">
                                                 <h5>Humidity</h5>
-                                                <h1 className="text-info">{this.state.currentEvent.humidity}</h1>
+                                                <h1 className="text-info">{this.state.currentEvent.humidity}%</h1>
                                             </div>
                                         </div>
 

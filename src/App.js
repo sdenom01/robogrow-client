@@ -18,6 +18,7 @@ import RegisterPage from './Register/Register';
 import LoginPage from './Login/Login';
 import GrowList from "./GrowList/GrowList";
 import GrowDetails from "./GrowDetails/GrowDetails";
+import GrowTimeline from "./GrowTimeline/GrowTimeline";
 import GrowEdit from "./GrowEdit/GrowEdit";
 import GrowConfigs from "./GrowConfigs/GrowConfigList";
 import GrowConfigEdit from "./GrowConfigs/GrowConfigEdit/GrowConfigEdit";
@@ -53,6 +54,7 @@ export default class App extends React.Component {
 
                         <PrivateRoute path="/grows/new" component={GrowEdit}/>
                         <PrivateRoute path="/grows/:growId/edit" component={GrowEdit}/>
+                        <PrivateRoute path="/grows/:growId/timeline" component={GrowTimeline}/>
                         <PrivateRoute path="/grows/:growId" component={GrowDetails}/>
                         <PrivateRoute path="/grows" component={GrowList}/>
 

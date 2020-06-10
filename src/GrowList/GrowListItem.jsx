@@ -24,23 +24,30 @@ export default class GrowListItem extends React.Component {
         });
     }
 
+    getMinutes(str) {
+        var time = str.split(':');
+        return time[0] * 60 + time[1] * 1;
+    }
+
+    getMinutesNow() {
+        var timeNow = new Date();
+        return timeNow.getHours() * 60 + timeNow.getMinutes();
+    }
+
     currentTimeWithinRange() {
-        if (this.state.grow && this.state.grow.config) {
-            var startTime = this.state.grow.config.lightsOn;
-            var endTime = this.state.grow.config.lightsOff;
+        if (this.state.grow && this.state.grow.config && this.state.grow.config.relaySchedules) {
+            // TODO Make this dynamic!
+            var startTime = this.state.grow.config.relaySchedules[0].events[0].triggerTime;
+            var endTime = this.state.grow.config.relaySchedules[0].events[1].triggerTime;
             var currentDate = new Date();
 
-            var startDate = new Date(currentDate.getTime());
-            startDate.setHours(startTime.split(":")[0]);
-            startDate.setMinutes(startTime.split(":")[1]);
-            startDate.setSeconds(startTime.split(":")[2]);
+            console.log(startTime, endTime, currentDate);
+            var now = this.getMinutesNow();
+            var start = this.getMinutes('10:00');
+            var end = this.getMinutes('2:00');
+            if (start > end) end += this.getMinutes('24:00');
 
-            var endDate = new Date(currentDate.getTime());
-            endDate.setHours(endTime.split(":")[0]);
-            endDate.setMinutes(endTime.split(":")[1]);
-            endDate.setSeconds(endTime.split(":")[2]);
-
-            var isValid = (startDate < currentDate && endDate > currentDate);
+            var isValid = (now > start) && (now < end);
             return (isValid) ? 'ON' : 'OFF';
         } else {
             return 'ERR';
