@@ -9,6 +9,14 @@ footer {
     min-height: 200px;
 }
 
+.timeline {
+    margin-top: 00px !important;
+}
+
+.timeline--wrapper {
+    margin-right: 0px !important;
+}
+
 /* Hide the carousel text when the screen is less than 600 pixels wide */
 @media (max-width: 600px) {
     .carousel-caption {

@@ -38,6 +38,8 @@ export default class GrowDetails extends React.Component {
                     dataLux.push(event.lux);
                 });
 
+                console.log(grow);
+
                 this.setState({
                     grow: grow,
                     primaryData: this.parsePrimaryGraphData(labels, dataTemp, dataHumidity),

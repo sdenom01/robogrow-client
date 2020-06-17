@@ -10,12 +10,12 @@ export const growService = {
 
 function getAll() {
     const requestOptions = { method: 'GET', headers: authHeader() };
-    return fetch(`http://localhost:3000/grows`, requestOptions).then(handleResponse);
+    return fetch(`http://204.48.25.187/grows`, requestOptions).then(handleResponse);
 }
 
 function getById(_id) {
     const requestOptions = { method: 'GET', headers: authHeader() };
-    return fetch(`http://localhost:3000/grows/` + _id, requestOptions).then(handleResponse);
+    return fetch(`http://204.48.25.187/grows/` + _id, requestOptions).then(handleResponse);
 }
 
 function updateById(grow) {
@@ -25,7 +25,7 @@ function updateById(grow) {
         body: JSON.stringify(grow)
     };
 
-    return fetch(`http://localhost:3000/grows/` + grow._id, requestOptions).then(handleResponse);
+    return fetch(`http://204.48.25.187/grows/` + grow._id, requestOptions).then(handleResponse);
 }
 
 function createNew(grow) {
@@ -35,5 +35,5 @@ function createNew(grow) {
         body: JSON.stringify(grow)
     };
 
-    return fetch(`http://localhost:3000/grows/`, requestOptions).then(handleResponse);
+    return fetch(`http://204.48.25.187/grows/`, requestOptions).then(handleResponse);
 }

@@ -14,6 +14,8 @@ import {authenticationService} from './_services/authentication.service';
 import Nav from "./Navigation/Nav";
 
 import {PrivateRoute} from './_components/PrivateRoute';
+
+import HomePage from './Home/Home';
 import RegisterPage from './Register/Register';
 import LoginPage from './Login/Login';
 import GrowList from "./GrowList/GrowList";
@@ -37,36 +39,43 @@ export default class App extends React.Component {
     }
 
     render() {
+        let user = (window.localStorage.currentUser) ? JSON.parse(window.localStorage.currentUser).user : null;
+
         return (
             <div>
-
                 <Nav/>
 
-                <Router>
-                    <Switch>
-                        <Route path="/register">
-                            <RegisterPage/>
-                        </Route>
+                <div style={(user) ? {marginTop: "150px"} : {}}>
+                    <Router>
+                        <Switch>
+                            <Route path="/register">
+                                <RegisterPage/>
+                            </Route>
 
-                        <Route path="/login">
-                            <LoginPage/>
-                        </Route>
+                            <Route path="/login">
+                                <LoginPage/>
+                            </Route>
 
-                        <PrivateRoute path="/grows/new" component={GrowEdit}/>
-                        <PrivateRoute path="/grows/:growId/edit" component={GrowEdit}/>
-                        <PrivateRoute path="/grows/:growId/timeline" component={GrowTimeline}/>
-                        <PrivateRoute path="/grows/:growId" component={GrowDetails}/>
-                        <PrivateRoute path="/grows" component={GrowList}/>
+                            <PrivateRoute path="/grows/new" component={GrowEdit}/>
+                            <PrivateRoute path="/grows/:growId/edit" component={GrowEdit}/>
+                            <PrivateRoute path="/grows/:growId/timeline" component={GrowTimeline}/>
+                            <PrivateRoute path="/grows/:growId" component={GrowDetails}/>
+                            <PrivateRoute path="/grows" component={GrowList}/>
+
+                            <PrivateRoute path="/configs/new" component={GrowConfigEdit}/>
+                            <PrivateRoute path="/configs/:configId" component={GrowConfigEdit}/>
+                            <PrivateRoute path="/configs" component={GrowConfigs}/>
 
 
-                        <PrivateRoute path="/configs/new" component={GrowConfigEdit}/>
-                        <PrivateRoute path="/configs/:configId" component={GrowConfigEdit}/>
-                        <PrivateRoute path="/configs" component={GrowConfigs}/>
+                            <Route path="/">
+                                <HomePage/>
+                            </Route>
 
-                        {/* Removed for MVP */}
-                        {/*<PrivateRoute path="/" component={Home}/>*/}
-                    </Switch>
-                </Router>
+                            {/* Removed for MVP */}
+                            {/*<PrivateRoute path="/" component={Home}/>*/}
+                        </Switch>
+                    </Router>
+                </div>
             </div>
         );
     }
