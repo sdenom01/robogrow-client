@@ -66,7 +66,6 @@ export default class App extends React.Component {
                             <PrivateRoute path="/configs/:configId" component={GrowConfigEdit}/>
                             <PrivateRoute path="/configs" component={GrowConfigs}/>
 
-
                             <Route path="/">
                                 <HomePage/>
                             </Route>

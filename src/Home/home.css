@@ -17,8 +17,6 @@ header.masthead {
     background-color: #343a40;
     background: url("https://blog.cabi.org/wp-content/uploads/sites/5/2019/05/istock_19892518_large-e1557757765929.jpg") no-repeat center center;
     background-size: cover;
-    padding-top: 8rem;
-    padding-bottom: 8rem;
 }
 
 header.masthead .overlay {
@@ -37,8 +35,8 @@ header.masthead h1 {
 
 @media (min-width: 768px) {
     header.masthead {
-        padding-top: 12rem;
-        padding-bottom: 12rem;
+        padding-top: 8rem;
+        padding-bottom: 6rem;
     }
 
     header.masthead h1 {
@@ -62,8 +60,8 @@ header.masthead h1 {
 }
 
 .features-icons {
-    padding-top: 7rem;
-    padding-bottom: 7rem;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
 }
 
 .features-icons .features-icons-item {
@@ -99,7 +97,7 @@ header.masthead h1 {
 .call-to-action {
     position: relative;
     background-color: #343a40;
-    background: url("/bg-masthead.jpg") no-repeat center center;
+    background: url("https://blog.cabi.org/wp-content/uploads/sites/5/2019/05/istock_19892518_large-e1557757765929.jpg") no-repeat center center;
     background-size: cover;
     padding-top: 7rem;
     padding-bottom: 7rem;

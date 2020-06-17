@@ -27,10 +27,10 @@ export default class MyForm extends React.Component {
                 <nav className="navbar bg-dark fixed-top" role="navigation">
                     <div className="container-fluid">
                         <div className="navbar-header">
-                            <a className="navbar-brand" href="/">
+                            <a className="navbar-brand text-center" href="/">
                                 <img src="/robogrow.png" style={{width: "100px", height: "100px"}}/>
 
-                                <h4>GrowBot</h4>
+                                <h4 className="">robogrow.io</h4>
                             </a>
                         </div>
 
