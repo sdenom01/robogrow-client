@@ -26,14 +26,6 @@ export default class MyForm extends React.Component {
             return (
                 <nav className="navbar bg-dark fixed-top" role="navigation">
                     <div className="container-fluid">
-                        <div className="navbar-header">
-                            <a className="navbar-brand text-center" href="/">
-                                <img src="/robogrow.png" style={{width: "100px", height: "100px"}}/>
-
-                                <h4 className="">robogrow.io</h4>
-                            </a>
-                        </div>
-
                         <ul className="nav navbar-nav navbar-expand">
                             <li className="nav-item">
                                 <a href="/grows" className="nav-link border-0 text">Grows</a>
