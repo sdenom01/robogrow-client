@@ -13,7 +13,7 @@ export default class App extends React.Component {
                              style={{width: "200px"}}/>
                     </div>
                     <div className="col-lg-5">
-                        <h1 className="font-weight-light">
+                        <h1 className="font-weight-light text-white">
                             robogrow
                         </h1>
 
