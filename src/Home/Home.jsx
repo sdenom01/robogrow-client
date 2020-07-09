@@ -6,7 +6,6 @@ export default class App extends React.Component {
         return (
             <body>
             <div className="container">
-
                 <div className="row align-items-center my-5">
                     <div className="col-lg-7 text-center">
                         <img className="img-fluid rounded mb-4 mb-lg-0" src="./robogrow_drop_shadow.png" alt=""

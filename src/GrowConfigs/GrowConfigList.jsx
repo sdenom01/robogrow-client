@@ -2,6 +2,7 @@ import React from "react";
 import {growConfigService} from '../_services/grow.config.service';
 import "./growConfigs.css";
 import GrowConfigItem from "./GrowConfigItem";
+import GrowConfigItemNEW from "./GrowConfigItemNEW";
 
 export default class GrowConfigList extends React.Component {
     constructor(props) {
@@ -36,19 +37,17 @@ export default class GrowConfigList extends React.Component {
     render() {
         return (
             <div>
-                <div className="container bg-3" style={{paddingTop: "100px"}}>
+                <div className="container bg-3">
                     <div className="row">
-                        <div className="col-sm-4">
-                            <a onClick={this.createNewConfig}>
-                                <div className="card shadow p-3 text-center view overlay" style={{height: "360px"}}>
-                                    <img className="m-auto" style={{width: "130px", height: "130px"}} src="./new_config.png"/>
-                                </div>
+                        <div className="col-4 m-auto text-center">
+                            <a className=""  onClick={this.createNewConfig}>
+                                <img className="" style={{width: "160px", height: "160px"}} src="./new_config.png"/>
                             </a>
                         </div>
 
                         {this.state.configs.map((config) => {
                                 return (
-                                    <GrowConfigItem key={config._id} config={config}/>
+                                    <GrowConfigItemNEW key={config._id} config={config}/>
                                 )
                             }
                         )}

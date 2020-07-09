@@ -5,7 +5,8 @@ export const growConfigService = {
     create,
     getAll,
     getById,
-    updateById
+    updateById,
+    deleteConfig
 };
 
 function create(config) {
@@ -36,4 +37,13 @@ function updateById(config) {
     };
 
     return fetch(`http://204.48.25.187/configs/` + config._id, requestOptions).then(handleResponse);
+}
+
+function deleteConfig(id) {
+    const requestOptions = {
+        method: 'DELETE',
+        headers: authHeader()
+    };
+
+    return fetch(`http://204.48.25.187/configs/` + id, requestOptions).then(handleResponse);
 }

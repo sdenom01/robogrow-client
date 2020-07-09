@@ -83,75 +83,76 @@ export default class GrowConfigItem extends React.Component {
 
     render() {
         return (
-            <div className="col-sm-4 card">
-
-                <div className="row">
-                    <div className="col-12">
-                        <EdiText
-                            value={this.state.config.name}
-                            type="text"
-                            className="form-control-lg p-0"
-                            submitOnEnter={true}
-                            onSave={this.handleSaveConfigName}/>
-                    </div>
-                    <div className="col-12">
-                        <div className="mb-4 mt-4 text-left">
-                            Acceptable Temperature
-                        </div>
-
-                        <div className="">
-                            <div className="">
-                                <InputRange
-                                    maxValue={90}
-                                    minValue={50}
-                                    value={this.state.tempValue}
-                                    onChange={tempValue => this.setState({tempValue})}
-                                    onChangeComplete={value => this.handleTemperatureAndHumidityChange({
-                                        type: 'temperature',
-                                        value: value
-                                    })}/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-12 mb-4">
-                        <div className="mb-4 mt-4 text-left">
-                            Acceptable Humidity
-                        </div>
-
-                        <div className="">
-                            <div className="">
-                                <InputRange
-                                    maxValue={100}
-                                    minValue={20}
-                                    value={this.state.humidityValue}
-                                    onChange={humidityValue => this.setState({humidityValue})}
-                                    onChangeComplete={value => this.handleTemperatureAndHumidityChange({
-                                        type: 'humidity',
-                                        value: value
-                                    })}/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="row mt-4">
+            <div className="col-4">
+                <div className="card">
+                    <div className="row">
                         <div className="col-12">
-                            <label className="mr-2">Lights On: </label>
-
-                            <div className="d-inline-block bg-white form-group ">
-                                <TimePicker
-                                    value={this.state.currentLightOn}
-                                    onChange={this.onChangeLightOn}
-                                    onClockClose={this.finalizeLightSchedule}/>
-                            </div>
+                            <EdiText
+                                value={this.state.config.name}
+                                type="text"
+                                className="form-control-lg p-0"
+                                submitOnEnter={true}
+                                onSave={this.handleSaveConfigName}/>
                         </div>
                         <div className="col-12">
-                            <label className="mr-2">Lights Off: </label>
-                            <div className="d-inline-block bg-white">
-                                <TimePicker
-                                    value={this.state.currentLightOff}
-                                    onChange={this.onChangeLightOff}
-                                    onClockClose={this.finalizeLightSchedule}/>
+                            <div className="mb-4 mt-4 text-left">
+                                Acceptable Temperature
+                            </div>
+
+                            <div className="">
+                                <div className="">
+                                    <InputRange
+                                        maxValue={90}
+                                        minValue={50}
+                                        value={this.state.tempValue}
+                                        onChange={tempValue => this.setState({tempValue})}
+                                        onChangeComplete={value => this.handleTemperatureAndHumidityChange({
+                                            type: 'temperature',
+                                            value: value
+                                        })}/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-12 mb-4">
+                            <div className="mb-4 mt-4 text-left">
+                                Acceptable Humidity
+                            </div>
+
+                            <div className="">
+                                <div className="">
+                                    <InputRange
+                                        maxValue={100}
+                                        minValue={20}
+                                        value={this.state.humidityValue}
+                                        onChange={humidityValue => this.setState({humidityValue})}
+                                        onChangeComplete={value => this.handleTemperatureAndHumidityChange({
+                                            type: 'humidity',
+                                            value: value
+                                        })}/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="row mt-4">
+                            <div className="col-12">
+                                <label className="mr-2">Lights On: </label>
+
+                                <div className="d-inline-block bg-white form-group ">
+                                    <TimePicker
+                                        value={this.state.currentLightOn}
+                                        onChange={this.onChangeLightOn}
+                                        onClockClose={this.finalizeLightSchedule}/>
+                                </div>
+                            </div>
+                            <div className="col-12">
+                                <label className="mr-2">Lights Off: </label>
+                                <div className="d-inline-block bg-white">
+                                    <TimePicker
+                                        value={this.state.currentLightOff}
+                                        onChange={this.onChangeLightOff}
+                                        onClockClose={this.finalizeLightSchedule}/>
+                                </div>
                             </div>
                         </div>
                     </div>

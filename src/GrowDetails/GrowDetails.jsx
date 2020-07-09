@@ -38,8 +38,6 @@ export default class GrowDetails extends React.Component {
                     dataLux.push(event.lux);
                 });
 
-                console.log(grow);
-
                 this.setState({
                     grow: grow,
                     primaryData: this.parsePrimaryGraphData(labels, dataTemp, dataHumidity),
@@ -233,8 +231,8 @@ export default class GrowDetails extends React.Component {
             };
 
             return (
-                <div className="mt-5">
-                    <div className="container pt-4">
+                <div className="container">
+                    <div className="jumbotron">
                         <div className="row">
                             <div className="ml-auto mr-auto row">
                                 <h3 className="mt-auto mb-auto">{this.state.grow.name}</h3>

@@ -16,6 +16,16 @@ footer {
     transition: 0.3s;
 }
 
+.frontpage_square{
+    position:relative;
+    overflow:hidden;
+    padding-bottom: 100%;
+}
+
+.frontpage_square img{
+    position:absolute;
+}
+
 a:hover {
     text-decoration: none;
 }

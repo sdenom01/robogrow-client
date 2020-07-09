@@ -72,7 +72,6 @@ export default class GrowEdit extends React.Component {
     }
 
     handleGrowCreateOrUpdate() {
-
         let grow = {
             ...this.state.grow,
         };
@@ -101,20 +100,20 @@ export default class GrowEdit extends React.Component {
 
         if (grow && grow._id) {
             console.log("UPDATE");
-            growService.updateById(bundle).then(() => {
+            growService.updateById(bundle).then(grow => {
                 window.location = '/grows/' + bundle._id;
             });
         } else {
             console.log("CREATE");
-            growService.createNew(bundle).then((grow) => {
-
+            growService.createNew(bundle).then(grow => {
+                window.location = '/grows/';
             });
         }
     }
 
     render() {
         return (
-            <div className="container ml-auto mr-auto rounded p-4 shadow" style={{width: "530px", marginTop: "10%"}}>
+            <div className="ml-auto mr-auto jumbotron" style={{width: "530px"}}>
                 <Form className="" onSubmit={this.handleGrowCreateOrUpdate}>
                     < Form.Group controlId="forEditGrow">
                         <Form.Label>Grow Name</Form.Label>

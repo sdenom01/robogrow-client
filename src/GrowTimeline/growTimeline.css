@@ -23,3 +23,17 @@ footer {
         display: none;
     }
 }
+
+.public-DraftStyleDefault-block {
+    min-height: 300px;
+    margin-top: 0px;
+    padding: 10px;
+}
+
+.rdw-editor-main {
+    background: white;
+}
+
+.rdw-editor-toolbar {
+    margin-bottom: 0px;
+}
