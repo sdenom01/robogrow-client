@@ -13,10 +13,12 @@ export default class MyForm extends React.Component {
     handleLogOut() {
         authenticationService.logout();
         history.push('/login');
+        window.location = "/login";
     }
 
     handleLogin() {
         history.push('/login');
+        window.location = "/login";
     }
 
     render() {
@@ -51,6 +53,15 @@ export default class MyForm extends React.Component {
             return (
                 <nav className="navbar bg-dark fixed-top" role="navigation">
                     <div className="container-fluid">
+                        <ul className="nav navbar-nav navbar-expand">
+                            <li className="nav-item">
+                                <a href="/log" className="nav-link border-0 text">About</a>
+                            </li>
+                            <li className="nav-item">
+                                <a href="/pricing" className="nav-link border-0">Pricing</a>
+                            </li>
+                        </ul>
+
                         <div className="nav navbar-nav flex-row justify-content-between ml-auto">
                             <button className="btn-primary m-2" onClick={this.handleLogin}>
                                 Login

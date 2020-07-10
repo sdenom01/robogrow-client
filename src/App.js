@@ -46,7 +46,7 @@ export default class App extends React.Component {
             <div>
                 <Nav/>
 
-                <div style={(user) ? {marginTop: "85px"} : {}}>
+                <div style={{marginTop: "85px"}}>
                     <Router>
                         <Switch>
                             <Route path="/register">
