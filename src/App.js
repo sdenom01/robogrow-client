@@ -16,6 +16,7 @@ import Nav from "./Navigation/Nav";
 import {PrivateRoute} from './_components/PrivateRoute';
 
 import HomePage from './Home/Home';
+import DevLog from './DevLog/DevLog';
 import RegisterPage from './Register/Register';
 import LoginPage from './Login/Login';
 import GrowList from "./GrowList/GrowList";
@@ -65,6 +66,10 @@ export default class App extends React.Component {
                             <PrivateRoute path="/configs/new" component={GrowConfigEdit}/>
                             <PrivateRoute path="/configs/:configId" component={GrowConfigEdit}/>
                             <PrivateRoute path="/configs" component={GrowConfigs}/>
+
+                            <Route path="/log">
+                                <DevLog/>
+                            </Route>
 
                             <Route path="/">
                                 <HomePage/>

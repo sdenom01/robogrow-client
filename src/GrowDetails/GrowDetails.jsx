@@ -271,7 +271,7 @@ export default class GrowDetails extends React.Component {
                                                         },
                                                         scaleLabel: {
                                                             display: true,
-                                                            labelString: 'Month',
+                                                            labelString: 'Day',
                                                             fontColor: 'white'
                                                         },
                                                         ticks: {
@@ -315,7 +315,7 @@ export default class GrowDetails extends React.Component {
                                                         },
                                                         scaleLabel: {
                                                             display: true,
-                                                            labelString: 'Month',
+                                                            labelString: 'Day',
                                                             fontColor: 'white'
                                                         },
                                                         ticks: {

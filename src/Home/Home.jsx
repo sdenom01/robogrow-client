@@ -23,8 +23,8 @@ export default class App extends React.Component {
                             <strong> Documentation and designs will ALWAYS be free to use and modify.</strong>
                             <br/>
                             <br/>
-                            Check out our <a href="/documentation">documentation</a> or <a href="/pricing">pricing </a>
-                            to get started!
+                            Check out more <a href="/log">About Us</a> or check out our <a href="/pricing">Pricing </a>
+                             to buy pre-made boards!
                         </p>
 
                         <br/>
