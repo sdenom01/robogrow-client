@@ -13,14 +13,14 @@ export default class App extends React.Component {
                         <p className="ml-2 mb-4">Last updated on July 7, 2020</p>
 
                         <div className="row">
-                            <div className="col-6 mb-5">
+                            <div className="col-lg-6 col-md-6 col-sm-12 mb-5">
                                 <img style={{width: "500px"}}
                                      className="img-fluid rounded shadow"
                                      src="https://cdn.discordapp.com/attachments/415233696019382291/717782181220450334/unknown.png"
                                      alt=""/>
                             </div>
 
-                            <div className="col-6 mb-5">
+                            <div className="col-lg-6 col-md-6 col-sm-12 mb-5">
                                 <p className="p-4">
                                     <strong>It lives!</strong>
                                     <br/>
@@ -56,14 +56,14 @@ export default class App extends React.Component {
                                 </p>
                             </div>
 
-                            <div className="col-6 mb-5">
+                            <div className="col-lg-6 col-md-6 col-sm-12 mb-5">
                                 <img style={{width: "500px"}} className="img-fluid rounded shadow"
                                      src="https://cdn.discordapp.com/attachments/415233696019382291/717782075003895888/2020-05-30.png"
                                      alt=""/>
                             </div>
 
 
-                            <div className="col-6 mb-5">
+                            <div className="col-lg-6 col-md-6 col-sm-12 mb-5">
                                 <div className="p-4">
                                     <strong>First Protoboard!</strong>
 
@@ -100,13 +100,13 @@ export default class App extends React.Component {
                             </div>
 
 
-                            <div className="col-6 mb-5">
+                            <div className="col-lg-6 col-md-6 col-sm-12 mb-5">
                                 <img style={{width: "500px"}} className="img-fluid rounded shadow"
                                      src="https://cdn.discordapp.com/attachments/415233696019382291/717781913498288288/2020-06-02.png"
                                      alt=""/>
                             </div>
 
-                            <div className="col-6 mb-5">
+                            <div className="col-lg-6 col-md-6 col-sm-12 mb-5">
                                 <div className="p-4">
                                     <strong>Complex Relay Schedules</strong>
 
@@ -148,13 +148,13 @@ export default class App extends React.Component {
                                 </div>
                             </div>
 
-                            <div className="col-6 mb-5">
+                            <div className="col-lg-6 col-md-6 col-sm-12 mb-5">
                                 <img style={{width: "500px"}} className="img-fluid rounded shadow"
                                      src="https://lh3.googleusercontent.com/-ShDJ2LtMQwI/XwiataI8nEI/AAAAAAABGxI/WK92K8gC3RM3bnclWqu8o7S9wE06WUFmQCK8BGAsYHg/s0/2020-07-10.png"
                                      alt=""/>
                             </div>
 
-                            <div className="col-6 mb-5">
+                            <div className="col-lg-6 col-md-6 col-sm-12 mb-5">
                                 <div className="p-4">
                                     <strong>New Web Interface</strong>
 
