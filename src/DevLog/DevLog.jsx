@@ -10,7 +10,7 @@ export default class App extends React.Component {
                     <div className="col-12">
                         <h1>The story so far...</h1>
 
-                        <p className="ml-2 mb-4">Last updated on July 7, 2020</p>
+                        <p className="ml-2 mb-4">Last updated on July 14, 2020</p>
 
                         <div className="row">
                             <div className="col-lg-6 col-md-6 col-sm-12 mb-5">
@@ -173,15 +173,52 @@ export default class App extends React.Component {
                                     <div className="row mr-4">
                                         <div className="col-8">
                                             <p>
-                                                Came up with a decent 'workable' logo.I'll go and get this professionally remade soon.
+                                                Came up with a decent 'workable' logo.I'll go and get this
+                                                professionally remade soon.
                                             </p>
                                         </div>
                                         <div className="col-4">
                                             <img className="img-fluid"
-                                                 src="/robogrow_3.png"
+                                                 src="/robogrow_drop_shadow.png"
                                                  alt=""/>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+
+
+                            <div className="col-lg-6 col-md-6 col-sm-12 mb-5">
+                                <div className="row">
+                                    <div className="col-lg-6 col-md-6 col-sm-6">
+                                        <img className="img-fluid"
+                                             src="robogrow_3.png"
+                                             alt=""/>
+                                    </div>
+
+                                    <div className="col-lg-6 col-md-6 col-sm-6">
+                                        <img className="img-fluid"
+                                             src="robogrow_4_gradient_new_shadow.png"
+                                             alt=""/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="col-lg-6 col-md-6 col-sm-12 mb-5">
+                                <div className="p-4">
+                                    <strong>Evolution!</strong>
+
+                                    <p>
+                                        After many revisions, I settled on something... for now.
+                                        <br/>
+                                        This logo seems to be simple enough and recognizable at a distance. Also it
+                                        embraces the <strong>love and compassion</strong> we all need to put into our
+                                        plants to get the
+                                        best results!
+                                        <br/>
+                                        <br/>
+                                        I'm feeling really good, everything is starting to feel like it's coming
+                                        together.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -189,6 +226,7 @@ export default class App extends React.Component {
                 </div>
             </div>
             </body>
-        );
+        )
+            ;
     }
 }
