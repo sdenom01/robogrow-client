@@ -57,8 +57,13 @@ export default class GrowDetails extends React.Component {
                     color: "#fff"
                 }}>
 
-                <img src={this.state.event.imageUrl}
-                     className="img-thumbnail"/>
+                {
+                    (this.state.event.imageUrl)
+                        ? <img src={this.state.event.imageUrl}
+                               className="img-thumbnail"/>
+                        :
+                        <div/>
+                }
 
                 <h3>{this.state.event.title}</h3>
 

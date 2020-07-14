@@ -178,7 +178,7 @@ export default class App extends React.Component {
                                         </div>
                                         <div className="col-4">
                                             <img className="img-fluid"
-                                                 src="/robogrow.png"
+                                                 src="/robogrow_3.png"
                                                  alt=""/>
                                         </div>
                                     </div>

@@ -7,15 +7,15 @@ export default class App extends React.Component {
             <body>
             <div className="container">
                 <div className="row align-items-center my-5">
-                    <div className="col-lg-7 text-center">
-                        <img className="img-fluid rounded mb-4 mb-lg-0" src="./robogrow_drop_shadow.png" alt=""
-                             style={{width: "200px"}}/>
+                    <div className="col-lg-4 col-sm-12 text-center">
+                        <img className="img-fluid mb-4 mb-lg-0" src="./robogrow_4_gradient_new_shadow.png" alt=""
+                             style={{width: "300px"}}/>
                     </div>
-                    <div className="col-lg-5">
-                        <h1 className="font-weight-light text-white">
-                            robogrow
-                        </h1>
+                    <div className="col-lg-7 col-sm-12">
+                        <img className="img-fluid mb-4 mb-lg-0" src="./robogrow_font_2_aligned.png" alt=""
+                             style={{width: "300px"}}/>
 
+                        <br/>
                         <br/>
 
                         <p>
@@ -23,8 +23,8 @@ export default class App extends React.Component {
                             <strong> Documentation and designs will ALWAYS be free to use and modify.</strong>
                             <br/>
                             <br/>
-                            Check out more <a href="/log">About Us</a> or check out our <a href="/pricing">Pricing </a>
-                             to buy pre-made boards!
+                            Check out more <a href="/log">about us</a> or check out our <a href="/pricing">pricing </a>
+                            to buy pre-made boards!
                         </p>
 
                         <br/>
@@ -128,7 +128,7 @@ export default class App extends React.Component {
                                 magna, vel pulvinar arcu lorem ut mi.</p>
                         </div>
                     </div>
-                    <div className="row no-gutters">
+                    <div className="row no-gutters pb-4">
                         <div className="col-lg-6 order-lg-2 text-white showcase-img"
                              style={{backgroundImage: "url('/timeline.png')"}}>>
                         </div>
@@ -148,16 +148,6 @@ export default class App extends React.Component {
                     </div>
                 </div>
             </section>
-
-            <footer className="py-5 bg-dark">
-                <div className="container">
-                    <p className="m-0 text-center text-white">Copyright &copy; robogrow</p>
-                </div>
-            </footer>
-
-            <script src="vendor/jquery/jquery.min.js"></script>
-            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
             </body>
         );
     }

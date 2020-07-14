@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "robogrow.png",
+      "src": "robogrow_3.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "robogrow.png",
+      "src": "robogrow_3.png",
       "type": "image/png",
       "sizes": "512x512"
     }
