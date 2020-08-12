@@ -378,6 +378,14 @@ export default class GrowDetails extends React.Component {
                                     </div>
                                 </div>
                             </div>
+
+                            <div className="col-12 m-5">
+                                <div className="col-8 m-auto">
+                                    <div className="pb-2">Live Feed:</div>
+                                <img className="" src="http://192.168.0.131:8081/"/>
+                                </div>
+                            </div>
+
                             <div className="container">
                                 <label>Quick Look</label>
 

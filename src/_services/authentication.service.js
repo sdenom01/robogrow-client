@@ -19,7 +19,7 @@ function register(username, email, password, confirmPassword) {
         body: JSON.stringify({ username, email, type: 0, password, confirmPassword })
     };
 
-    return fetch(`http://204.48.25.187/register`, requestOptions)
+    return fetch(`https://204.48.25.187/register`, requestOptions)
         .then(handleResponse)
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -37,7 +37,7 @@ function login(email, password) {
         body: JSON.stringify({ email, password })
     };
 
-    return fetch(`http://204.48.25.187/authenticate`, requestOptions)
+    return fetch(`https://204.48.25.187/authenticate`, requestOptions)
         .then(handleResponse)
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes

@@ -3,7 +3,8 @@ import {
     BrowserRouter as Router,
     withRouter,
     Switch,
-    Route
+    Route,
+    Redirect
 } from "react-router-dom";
 
 import "bootswatch/dist/slate/bootstrap.min.css";
@@ -25,6 +26,8 @@ import GrowTimeline from "./GrowTimeline/GrowTimeline";
 import GrowEdit from "./GrowEdit/GrowEdit";
 import GrowConfigs from "./GrowConfigs/GrowConfigList";
 import GrowConfigEdit from "./GrowConfigs/GrowConfigEdit/GrowConfigEdit";
+
+import NotFoundPage from './NotFound/NotFound';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -71,9 +74,13 @@ export default class App extends React.Component {
                                 <DevLog/>
                             </Route>
 
-                            <Route path="/">
+                            <Route path="/not-found" component={NotFoundPage} />
+
+                            <Route exact path="/">
                                 <HomePage/>
                             </Route>
+
+                            <Redirect to="/not-found" />
 
                             {/* Removed for MVP */}
                             {/*<PrivateRoute path="/" component={Home}/>*/}

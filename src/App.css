@@ -1,5 +1,10 @@
+html {
+    background: #272B30;
+}
+
 body {
     padding-top: 70px;
+    background: #272B30;
 }
 
 .App {
