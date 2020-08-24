@@ -16,17 +16,17 @@ function create(config) {
         body: JSON.stringify(config)
     };
 
-    return fetch(`https://204.48.25.187/configs/`, requestOptions).then(handleResponse);
+    return fetch(`https://api.robogrow.io/configs/`, requestOptions).then(handleResponse);
 }
 
 function getAll() {
     const requestOptions = { method: 'GET', headers: authHeader() };
-    return fetch(`https://204.48.25.187/configs`, requestOptions).then(handleResponse);
+    return fetch(`https://api.robogrow.io/configs`, requestOptions).then(handleResponse);
 }
 
 function getById(_id) {
     const requestOptions = { method: 'GET', headers: authHeader() };
-    return fetch(`https://204.48.25.187/configs/` + _id, requestOptions).then(handleResponse);
+    return fetch(`https://api.robogrow.io/configs/` + _id, requestOptions).then(handleResponse);
 }
 
 function updateById(config) {
@@ -36,7 +36,7 @@ function updateById(config) {
         body: JSON.stringify(config)
     };
 
-    return fetch(`https://204.48.25.187/configs/` + config._id, requestOptions).then(handleResponse);
+    return fetch(`https://api.robogrow.io/configs/` + config._id, requestOptions).then(handleResponse);
 }
 
 function deleteConfig(id) {
@@ -45,5 +45,5 @@ function deleteConfig(id) {
         headers: authHeader()
     };
 
-    return fetch(`https://204.48.25.187/configs/` + id, requestOptions).then(handleResponse);
+    return fetch(`https://api.robogrow.io/configs/` + id, requestOptions).then(handleResponse);
 }
