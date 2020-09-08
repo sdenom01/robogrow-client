@@ -78,15 +78,15 @@ export default class App extends React.Component {
                 </div>
             </div>
 
-            <section className="features-icons bg-secondary text-center">
-                <br/>
-                <br/>
-                <div className="col-6 m-auto">
-                    <iframe width="640" height="360" src="https://www.youtube.com/embed/0BBd3KXg4dQ" frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                </div>
-            </section>
+            {/*<section className="features-icons bg-secondary text-center">*/}
+                {/*<br/>*/}
+                {/*<br/>*/}
+                {/*<div className="col-6 m-auto">*/}
+                    {/*<iframe width="640" height="360" src="https://www.youtube.com/embed/0BBd3KXg4dQ" frameborder="0"*/}
+                            {/*allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"*/}
+                            {/*allowfullscreen></iframe>*/}
+                {/*</div>*/}
+            {/*</section>*/}
 
             <section className="showcase">
                 <div className="container-fluid p-0">
@@ -128,24 +128,24 @@ export default class App extends React.Component {
                                 magna, vel pulvinar arcu lorem ut mi.</p>
                         </div>
                     </div>
-                    <div className="row no-gutters pb-4">
-                        <div className="col-lg-6 order-lg-2 text-white showcase-img"
-                             style={{backgroundImage: "url('/timeline.png')"}}>>
-                        </div>
-                        <div className="col-lg-6 order-lg-1 my-auto showcase-text">
-                            <h2>Full Grow Timeline</h2>
-                            <p className="lead mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                                lobortis sem nisi, at molestie sem varius ut. Integer placerat sapien vel nibh
-                                auctor, eget ullamcorper tellus viverra. Suspendisse potenti. Cras ac neque justo.
-                                Integer tempus, urna sit amet facilisis consectetur, ligula risus laoreet nisi,
-                                vitae maximus nisi eros id ante. Vestibulum at felis lorem. Quisque feugiat
-                                vestibulum sem quis faucibus. Pellentesque a molestie est, et tempus augue. Aenean
-                                vitae sapien iaculis, malesuada mauris in, gravida nulla. Nunc mollis mauris diam,
-                                sagittis semper metus congue non. Nam consectetur sollicitudin dolor, non volutpat
-                                justo. Maecenas convallis, tortor id elementum ultricies, mauris lectus facilisis
-                                magna, vel pulvinar arcu lorem ut mi.</p>
-                        </div>
-                    </div>
+                    {/*<div className="row no-gutters pb-4">*/}
+                        {/*<div className="col-lg-6 order-lg-2 text-white showcase-img"*/}
+                             {/*style={{backgroundImage: "url('/timeline.png')"}}>>*/}
+                        {/*</div>*/}
+                        {/*<div className="col-lg-6 order-lg-1 my-auto showcase-text">*/}
+                            {/*<h2>Full Grow Timeline</h2>*/}
+                            {/*<p className="lead mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed*/}
+                                {/*lobortis sem nisi, at molestie sem varius ut. Integer placerat sapien vel nibh*/}
+                                {/*auctor, eget ullamcorper tellus viverra. Suspendisse potenti. Cras ac neque justo.*/}
+                                {/*Integer tempus, urna sit amet facilisis consectetur, ligula risus laoreet nisi,*/}
+                                {/*vitae maximus nisi eros id ante. Vestibulum at felis lorem. Quisque feugiat*/}
+                                {/*vestibulum sem quis faucibus. Pellentesque a molestie est, et tempus augue. Aenean*/}
+                                {/*vitae sapien iaculis, malesuada mauris in, gravida nulla. Nunc mollis mauris diam,*/}
+                                {/*sagittis semper metus congue non. Nam consectetur sollicitudin dolor, non volutpat*/}
+                                {/*justo. Maecenas convallis, tortor id elementum ultricies, mauris lectus facilisis*/}
+                                {/*magna, vel pulvinar arcu lorem ut mi.</p>*/}
+                        {/*</div>*/}
+                    {/*</div>*/}
                 </div>
             </section>
             </body>
