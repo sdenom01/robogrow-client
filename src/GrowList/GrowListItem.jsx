@@ -35,23 +35,23 @@ export default class GrowListItem extends React.Component {
     }
 
     currentTimeWithinRange() {
-        if (this.state.grow && this.state.grow.config && this.state.grow.config.relaySchedules) {
-            // TODO Make this dynamic!
-            var startTime = this.state.grow.config.relaySchedules[0].events[0].triggerTime;
-            var endTime = this.state.grow.config.relaySchedules[0].events[1].triggerTime;
-            var currentDate = new Date();
-
-            console.log(startTime, endTime, currentDate);
-            var now = this.getMinutesNow();
-            var start = this.getMinutes('10:00');
-            var end = this.getMinutes('2:00');
-            if (start > end) end += this.getMinutes('24:00');
-
-            var isValid = (now > start) && (now < end);
-            return (isValid) ? 'ON' : 'OFF';
-        } else {
-            return 'ERR';
-        }
+        // if (this.state.grow && this.state.grow.config && this.state.grow.config.relaySchedules) {
+        //     // TODO Make this dynamic!
+        //     var startTime = this.state.grow.config.relaySchedules[0].events[0].triggerTime;
+        //     var endTime = this.state.grow.config.relaySchedules[0].events[1].triggerTime;
+        //     var currentDate = new Date();
+        //
+        //     console.log(startTime, endTime, currentDate);
+        //     var now = this.getMinutesNow();
+        //     var start = this.getMinutes('10:00');
+        //     var end = this.getMinutes('2:00');
+        //     if (start > end) end += this.getMinutes('24:00');
+        //
+        //     var isValid = (now > start) && (now < end);
+        //     return (isValid) ? 'ON' : 'OFF';
+        // } else {
+        //     return 'ERR';
+        // }
     }
 
     normalize(val, max, min) {

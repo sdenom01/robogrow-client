@@ -34,7 +34,7 @@ export default class App extends React.Component {
                 </div>
 
                 <div className="row pb-4">
-                    <div className="col-md-4 mb-5">
+                    <div className="col-sm-12 col-md-4 mb-5">
                         <div className="card h-100">
                             <div className="card-body">
                                 <h5 className="card-title">Data Over Time</h5>
