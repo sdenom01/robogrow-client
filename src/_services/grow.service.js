@@ -5,6 +5,7 @@ export const growService = {
     getAll,
     getById,
     updateById,
+    endGrowById,
     createNew,
     getTimelineEvents,
     createNewTimelineEvent,
@@ -14,7 +15,7 @@ export const growService = {
 
 function getAll() {
     const requestOptions = {method: 'GET', headers: authHeader()};
-    return fetch(`https://api.robogrow.io/grows`, requestOptions).then(handleResponse);
+    return fetch(global.apiUrl + `/grows`, requestOptions).then(handleResponse);
 }
 
 function getById(_id) {
@@ -24,7 +25,7 @@ function getById(_id) {
     console.log("heacers: " + JSON.stringify(tempHeaders));
 
     const requestOptions = {method: 'GET', headers: tempHeaders};
-    return fetch(`https://api.robogrow.io/grows/` + _id, requestOptions).then(handleResponse);
+    return fetch(global.apiUrl + `/grows/` + _id, requestOptions).then(handleResponse);
 }
 
 function updateById(grow) {
@@ -34,7 +35,17 @@ function updateById(grow) {
         body: JSON.stringify(grow)
     };
 
-    return fetch(`https://api.robogrow.io/grows/` + grow._id, requestOptions).then(handleResponse);
+    return fetch(global.apiUrl + `/grows/` + grow._id, requestOptions).then(handleResponse);
+}
+
+function endGrowById(grow) {
+    const requestOptions = {
+        method: 'PUT',
+        headers: authHeader(),
+        body: JSON.stringify(grow),
+    };
+
+    return fetch(global.apiUrl + `/grows/` + grow._id + `/end`, requestOptions).then(handleResponse);
 }
 
 function createNew(grow) {
@@ -44,12 +55,12 @@ function createNew(grow) {
         body: JSON.stringify(grow)
     };
 
-    return fetch(`https://api.robogrow.io/grows/`, requestOptions).then(handleResponse);
+    return fetch(global.apiUrl + `/grows/`, requestOptions).then(handleResponse);
 }
 
 function getTimelineEvents(_id) {
     const requestOptions = {method: 'GET', headers: authHeader()};
-    return fetch(`https://api.robogrow.io/grows/` + _id + `/timeline`, requestOptions).then(handleResponse);
+    return fetch(global.apiUrl + `/grows/` + _id + `/timeline`, requestOptions).then(handleResponse);
 }
 
 function createNewTimelineEvent(_id, event) {
@@ -59,7 +70,7 @@ function createNewTimelineEvent(_id, event) {
         body: JSON.stringify(event)
     };
 
-    return fetch(`https://api.robogrow.io/grows/` + _id + `/timeline`, requestOptions).then(handleResponse);
+    return fetch(global.apiUrl + `/grows/` + _id + `/timeline`, requestOptions).then(handleResponse);
 }
 
 function updateTimelineEvent(_id, event) {
@@ -69,7 +80,7 @@ function updateTimelineEvent(_id, event) {
         body: JSON.stringify(event)
     };
 
-    return fetch(`https://api.robogrow.io/grows/` + _id + `/timeline/` + event._id, requestOptions).then(handleResponse);
+    return fetch(global.apiUrl + `/grows/` + _id + `/timeline/` + event._id, requestOptions).then(handleResponse);
 }
 
 function deleteTimelineEvent(growId, eventId) {
@@ -78,5 +89,5 @@ function deleteTimelineEvent(growId, eventId) {
         headers: authHeader()
     };
 
-    return fetch(`https://api.robogrow.io/grows/` + growId + `/timeline/` + eventId, requestOptions).then(handleResponse);
+    return fetch(global.apiUrl + `/grows/` + growId + `/timeline/` + eventId, requestOptions).then(handleResponse);
 }
