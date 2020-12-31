@@ -10,7 +10,7 @@ export default class EditorContainer extends React.Component {
         this.state = {
             event: props.event,
             title: (props.event.title) ? props.event.title: "",
-            title: (props.event.imageUrl) ? props.event.imageUrl: "",
+            imageUrl: (props.event.imageUrl) ? props.event.imageUrl: "",
             editorState: EditorState.createEmpty()
         };
 

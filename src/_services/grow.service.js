@@ -9,7 +9,8 @@ export const growService = {
     getTimelineEvents,
     createNewTimelineEvent,
     updateTimelineEvent,
-    deleteTimelineEvent
+    deleteTimelineEvent,
+    getGrowEventsWithLimit
 };
 
 function getAll() {
@@ -19,9 +20,9 @@ function getAll() {
 
 function getById(_id) {
     let tempHeaders = authHeader();
-    tempHeaders.x_api_limit = 100;
+    tempHeaders["x-api-limit"] = 144;
 
-    console.log("heacers: " + JSON.stringify(tempHeaders));
+    console.log("headers: " + JSON.stringify(tempHeaders));
 
     const requestOptions = {method: 'GET', headers: tempHeaders};
     return fetch(`https://api.robogrow.io/grows/` + _id, requestOptions).then(handleResponse);
@@ -79,4 +80,16 @@ function deleteTimelineEvent(growId, eventId) {
     };
 
     return fetch(`https://api.robogrow.io/grows/` + growId + `/timeline/` + eventId, requestOptions).then(handleResponse);
+}
+
+function getGrowEventsWithLimit(growId, eventId) {
+    var headers = authHeader();
+    headers["x-api-limit"] = 144;
+
+    const requestOptions = {
+        method: 'GET',
+        headers: headers
+    };
+
+    return fetch(`https://api.robogrow.io/grows/` + growId + `/growEvents/`, requestOptions).then(handleResponse);
 }
