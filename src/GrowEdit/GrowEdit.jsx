@@ -107,7 +107,7 @@ export default class GrowEdit extends React.Component {
         } else {
             console.log("CREATE");
             growService.createNew(bundle).then(grow => {
-                window.location = '/grows/';
+                window.location = '/grows';
             });
         }
     }
