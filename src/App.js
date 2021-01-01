@@ -33,10 +33,14 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
 
+        global.apiUrl = `http://localhost:3000`;
+
         this.state = {
             currentUser: null
         };
     }
+
+
 
     componentDidMount() {
         authenticationService.currentUser.subscribe(x => this.setState({currentUser: x}));

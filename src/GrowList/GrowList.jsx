@@ -3,6 +3,7 @@ import Carousel from "react-bootstrap/Carousel";
 import {growService} from '../_services/grow.service';
 import "./growList.css";
 import GrowListItem from './GrowListItem';
+import { growConfigService } from "../_services/grow.config.service";
 
 export default class GrowList extends React.Component {
     constructor(props) {
@@ -15,7 +16,12 @@ export default class GrowList extends React.Component {
     }
 
     componentDidMount() {
-        growService.getAll().then(grows => this.setState({grows}))
+        //-- get all grows, then join them with their config
+        growService.getAll()
+            //.then(grows => grows.map(grow => growConfigService
+            //    .getById(grow.growConfigId)
+            //    .then(config => grow.config = config)))
+            .then(grows => this.setState({grows}));
     }
 
     render() {

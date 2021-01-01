@@ -216,6 +216,11 @@ export default class GrowDetails extends React.Component {
         }
     }
 
+    handleEndGrow() {
+        growService.endGrowById(this.state.grow);
+        window.location = "/grows";
+    }
+
     render() {
         if (this.state.grow._id) {
             var isLightOn = this.currentTimeWithinRange();
@@ -248,6 +253,12 @@ export default class GrowDetails extends React.Component {
                                                 window.location = "/grows/" + this.props.match.params.growId + "/timeline"
                                             }}>
                                         Timeline
+                                    </button>
+                                    <button className="btn btn-danger p-2 mr-2"
+                                            onClick={() => {
+                                                this.handleEndGrow();
+                                            }}>
+                                        End Grow
                                     </button>
                                 </div>
                             </div>

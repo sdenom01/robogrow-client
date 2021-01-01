@@ -80,7 +80,9 @@ export default class GrowEdit extends React.Component {
             grow.name = this.state.currentName;
         }
 
-        if (this.state.selectedConfig && grow.config && this.state.selectedConfig._id !== grow.config._id) {
+        // check and make sure we have a config selected
+        // TODO: previous code was checking for previously set grow state.  Consider updating to prevent resaving of something that has no new information
+        if (this.state.selectedConfig && this.state.selectedConfig._id) {
             grow.config = this.state.selectedConfig;
         }
 
@@ -89,10 +91,9 @@ export default class GrowEdit extends React.Component {
 
         // TODO: Implement growth stages (derrived from config)
         grow.growStage = 'N/A';
-
         let bundle = {
             _id: grow._id,
-            configId: grow.config._id,
+            growConfigId: grow.config._id,
             name: grow.name,
             numPlants: grow.numPlants,
             growStage: grow.growStage
