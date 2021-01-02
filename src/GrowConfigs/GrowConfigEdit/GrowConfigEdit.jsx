@@ -40,17 +40,22 @@ export default class GrowConfigDetails extends React.Component {
     }
 
     updateConfiguration(obj) {
+        let config = this.state.config;
         if (obj.type === 'temperature') {
+            config.tempLow = obj.value.min;
+            config.tempHigh = obj.value.max;
             this.setState({
-                tempValue: obj.value
+                config: config,
             });
         } else {
+            config.humidityLow = obj.value.min;
+            config.humidityHigh = obj.value.max;
             this.setState({
-                humidityValue: obj.value
+                config: config,
             });
         }
 
-        growConfigService.updateById(this.state.config)
+        growConfigService.updateById(config);
     }
 
     updateRelaySchedules(schedule) {
