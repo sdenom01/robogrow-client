@@ -103,11 +103,6 @@ export default class GrowDetails extends React.Component {
             imageUrl: this.state.currentEvent.imageUrl
         };
 
-        console.log(this.state.currentEvent);
-
-        console.log("SAVE");
-        console.log(eventObj);
-
         if (!eventObj._id) {
             growService.createNewTimelineEvent(growId, eventObj).then(event => {
                     var events = this.state.events.concat(eventObj);
@@ -119,11 +114,8 @@ export default class GrowDetails extends React.Component {
             );
         } else {
             growService.updateTimelineEvent(growId, eventObj).then(event => {
-                    var events = this.state.events.concat(eventObj);
-                    this.setState({
-                        events: events,
-                        showModal: false
-                    });
+                    // TODO: Ugly AF, need to do this without refreshing
+                    window.location.reload();
                 }
             );
         }
@@ -145,7 +137,7 @@ export default class GrowDetails extends React.Component {
 
                     <Modal.Footer>
                         <Button variant="primary" onClick={this.handleSave}>
-                            Create
+                            {(this.state.currentEvent._id) ? "Update": "Create"}
                         </Button>
                     </Modal.Footer>
                 </Modal>
