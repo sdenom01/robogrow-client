@@ -89,7 +89,7 @@ export default class GrowEdit extends React.Component {
         // TODO: Implement Plants / Notes
         grow.numPlants = 0;
 
-        // TODO: Implement growth stages (derrived from config)
+        // TODO: Implement growth stages (derived from config)
         grow.growStage = 'N/A';
         let bundle = {
             _id: grow._id,

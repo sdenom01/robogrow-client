@@ -17,7 +17,7 @@ import TimelineItem from './TimelineItem';
 
 
 require('react-image-timeline/dist/timeline.css'); // .scss also available
-
+// TODO: This WHOLE class should be reworked..
 export default class GrowDetails extends React.Component {
     constructor(props) {
         super(props);
@@ -102,6 +102,11 @@ export default class GrowDetails extends React.Component {
             text: this.state.currentEvent.text,
             imageUrl: this.state.currentEvent.imageUrl
         };
+
+        console.log(this.state.currentEvent);
+
+        console.log("SAVE");
+        console.log(eventObj);
 
         if (!eventObj._id) {
             growService.createNewTimelineEvent(growId, eventObj).then(event => {
