@@ -8,7 +8,7 @@ import {
     faCalendarPlus,
 } from '@fortawesome/free-solid-svg-icons'
 
-import Editor from './Editor';
+import Editor from './TimelineEditor';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import "./growTimeline.css";
 
