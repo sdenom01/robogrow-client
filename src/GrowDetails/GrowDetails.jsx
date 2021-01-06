@@ -1,6 +1,6 @@
 import React from "react";
 import {growService} from '../_services/grow.service';
-import GrowEventGraphs from "./GrowEventGraphs";
+import GrowDataGraphs from "./GrowDataGraphs";
 import "./growDetails.css";
 
 export default class GrowDetails extends React.Component {
@@ -73,7 +73,7 @@ export default class GrowDetails extends React.Component {
                             </div>
                         </div>
 
-                        <GrowEventGraphs growId={this.state.grow._id}/>
+                        <GrowDataGraphs growId={this.state.grow._id}/>
                     </div>
                 </div>
             );

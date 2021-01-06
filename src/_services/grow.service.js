@@ -20,11 +20,9 @@ function getAll() {
 }
 
 // TODO: left off here 1/5/2021
-function getById(_id, lmi) {
+function getById(_id) {
     let tempHeaders = authHeader();
     tempHeaders["x-api-limit"] = 100;
-
-    console.log("headers: " + JSON.stringify(tempHeaders));
 
     const requestOptions = {method: 'GET', headers: tempHeaders};
     return fetch(global.apiUrl + `/grows/` + _id, requestOptions).then(handleResponse);
@@ -60,8 +58,11 @@ function createNew(grow) {
     return fetch(global.apiUrl + `/grows/`, requestOptions).then(handleResponse);
 }
 
-function getGrowDataEvents(_id) {
-    const requestOptions = {method: 'GET', headers: authHeader()};
+function getGrowDataEvents(_id, limit) {
+    let headers = authHeader();
+    headers["x-api-limit"] = limit;
+
+    const requestOptions = {method: 'GET', headers: headers};
     return fetch(global.apiUrl + `/grows/` + _id + `/events`, requestOptions).then(handleResponse);
 }
 

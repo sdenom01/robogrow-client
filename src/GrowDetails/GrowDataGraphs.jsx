@@ -1,16 +1,18 @@
 import React from "react";
 import {growService} from '../_services/grow.service';
 import "./growDetails.css";
+import {Alert, Breadcrumb} from 'react-bootstrap';
 
 import {Line} from 'react-chartjs-2';
 
 import dateFormat from 'dateformat';
 
-export default class GrowDetails extends React.Component {
+export default class GrowDataGraphs extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             growId: props.growId,
+            rangeIndex: 2,
             primaryData: []
         };
 
@@ -18,32 +20,7 @@ export default class GrowDetails extends React.Component {
     }
 
     componentDidMount() {
-        growService.getGrowDataEvents(this.state.growId).then(events => {
-                let labels = [];
-                let dataTemp = [];
-                let dataHumidity = [];
-                let dataInfrared = [];
-                let dataLux = [];
-
-                events.forEach((event) => {
-                    labels.push(dateFormat(event.createDate, "h:MM:ss TT"));
-                    dataTemp.push(event.temp);
-                    dataHumidity.push(event.humidity);
-                    dataInfrared.push(event.infrared);
-                    dataLux.push(event.lux);
-                });
-
-                this.setState({
-                    primaryData: this.parsePrimaryGraphData(labels, dataTemp, dataHumidity),
-                    secondaryData: this.parseSecondaryGraphData(labels, dataInfrared, dataLux),
-                    currentEvent: events[events.length - 1]
-                }, function () {
-                    console.log("SET PRIMARY AND SECONDARY DATA");
-                    console.log(this.state.primaryData);
-                    console.log(this.state.secondaryData);
-                })
-            }
-        )
+        this.fetchDataEventsWithLimit(144, this.state.rangeIndex);
     }
 
     parsePrimaryGraphData(labels, dataTemp, dataHumidity) {
@@ -93,6 +70,32 @@ export default class GrowDetails extends React.Component {
                 }
             ]
         })
+    }
+
+    fetchDataEventsWithLimit(limit, index) {
+        growService.getGrowDataEvents(this.state.growId, limit).then(events => {
+                let labels = [];
+                let dataTemp = [];
+                let dataHumidity = [];
+                let dataInfrared = [];
+                let dataLux = [];
+
+                events.forEach((event) => {
+                    labels.push(dateFormat(event.createDate, "h:MM:ss TT"));
+                    dataTemp.push(event.temp);
+                    dataHumidity.push(event.humidity);
+                    dataInfrared.push(event.infrared);
+                    dataLux.push(event.lux);
+                });
+
+                this.setState({
+                    primaryData: this.parsePrimaryGraphData(labels, dataTemp, dataHumidity),
+                    secondaryData: this.parseSecondaryGraphData(labels, dataInfrared, dataLux),
+                    currentEvent: events[events.length - 1],
+                    rangeIndex: index
+                })
+            }
+        )
     }
 
     parseSecondaryGraphData(labels, dataInfrared, dataLux) {
@@ -164,8 +167,41 @@ export default class GrowDetails extends React.Component {
                 height: "1px"
             };
 
+            // TODO: Serve this from the API, make this a date range .. not hard coded limits
+            let rangeOptions = [
+                {
+                    display: "Lifetime",
+                    limit: -1
+                },
+                {
+                    display: "Month",
+                    limit: 4320
+                },
+                {
+                    display: "Day",
+                    limit: 144
+                }
+            ];
+
+            let self = this;
             return (
                 <div className="pt-3">
+                    <div className="row pl-5">
+                        {
+                            rangeOptions.map((option, index) => {
+                                let clazz = (self.state.rangeIndex == index) ? "text-secondary" : "";
+
+                                return (
+                                    <Breadcrumb.Item className="mt-0" key={option.display} onClick={() => {
+                                        this.fetchDataEventsWithLimit(option.limit, index)
+                                    }}>
+                                        <div className={clazz}>{option.display}</div>
+                                    </Breadcrumb.Item>
+                                )
+                            })
+                        }
+                    </div>
+
                     <div className="row">
                         <div className="col-10 ">
                             <div className="ml-auto mr-auto ">
@@ -293,7 +329,14 @@ export default class GrowDetails extends React.Component {
                 </div>
             );
         } else {
-            return (<div>Sorry! That grow cannot be found!</div>);
+            return (
+                <div className="container mt-5">
+                    <Alert className="w-25 ml-auto mr-auto text-center h5" variant="danger">
+                        Sorry!
+                        <hr/>
+                        We're having a problem fetching the data events!
+                    </Alert>
+                </div>);
         }
     }
 }
