@@ -23,8 +23,7 @@ export default class App extends React.Component {
                             <strong> Documentation and designs will ALWAYS be free to use and modify.</strong>
                             <br/>
                             <br/>
-                            Check out more <a href="/log">about us</a> or check out our <a href="/pricing">pricing </a>
-                            to buy pre-made boards!
+                            Check out more <a href="/log">about us</a>.
                         </p>
 
                         <br/>
@@ -79,13 +78,13 @@ export default class App extends React.Component {
             </div>
 
             {/*<section className="features-icons bg-secondary text-center">*/}
-                {/*<br/>*/}
-                {/*<br/>*/}
-                {/*<div className="col-6 m-auto">*/}
-                    {/*<iframe width="640" height="360" src="https://www.youtube.com/embed/0BBd3KXg4dQ" frameborder="0"*/}
-                            {/*allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"*/}
-                            {/*allowfullscreen></iframe>*/}
-                {/*</div>*/}
+            {/*<br/>*/}
+            {/*<br/>*/}
+            {/*<div className="col-6 m-auto">*/}
+            {/*<iframe width="640" height="360" src="https://www.youtube.com/embed/0BBd3KXg4dQ" frameborder="0"*/}
+            {/*allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"*/}
+            {/*allowfullscreen></iframe>*/}
+            {/*</div>*/}
             {/*</section>*/}
 
             <section className="showcase">
@@ -97,16 +96,10 @@ export default class App extends React.Component {
                         <div className="col-lg-6 order-lg-1 my-auto showcase-text">
                             <h2>Data Over Time</h2>
                             <p className="lead mb-0">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis sem nisi, at
-                                molestie sem varius ut. Integer placerat sapien vel nibh auctor, eget ullamcorper
-                                tellus viverra. Suspendisse potenti. Cras ac neque justo. Integer tempus, urna sit
-                                amet facilisis consectetur, ligula risus laoreet nisi, vitae maximus nisi eros id
-                                ante. Vestibulum at felis lorem. Quisque feugiat vestibulum sem quis faucibus.
-                                Pellentesque a molestie est, et tempus augue. Aenean vitae sapien iaculis, malesuada
-                                mauris in, gravida nulla. Nunc mollis mauris diam, sagittis semper metus congue non.
-                                Nam consectetur sollicitudin dolor, non volutpat justo. Maecenas convallis, tortor
-                                id elementum ultricies, mauris lectus facilisis magna, vel pulvinar arcu lorem ut
-                                mi.
+                                Optimizing your environment is key to maximize yield and overall plant health. With
+                                configurable intervals your data can be as granular as you need allowing you to make
+                                educated decisions regarding nutrient levels, Photosynthetically Active Radiation (PAR),
+                                and even fine tune your configurations to give you the absolute BEST results.
                             </p>
                         </div>
                     </div>
@@ -116,36 +109,24 @@ export default class App extends React.Component {
                         </div>
                         <div className="col-lg-6 my-auto showcase-text">
                             <h2>Complex Relay Schedules</h2>
-                            <p className="lead mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                                lobortis sem nisi, at molestie sem varius ut. Integer placerat sapien vel nibh
-                                auctor, eget ullamcorper tellus viverra. Suspendisse potenti. Cras ac neque justo.
-                                Integer tempus, urna sit amet facilisis consectetur, ligula risus laoreet nisi,
-                                vitae maximus nisi eros id ante. Vestibulum at felis lorem. Quisque feugiat
-                                vestibulum sem quis faucibus. Pellentesque a molestie est, et tempus augue. Aenean
-                                vitae sapien iaculis, malesuada mauris in, gravida nulla. Nunc mollis mauris diam,
-                                sagittis semper metus congue non. Nam consectetur sollicitudin dolor, non volutpat
-                                justo. Maecenas convallis, tortor id elementum ultricies, mauris lectus facilisis
-                                magna, vel pulvinar arcu lorem ut mi.</p>
+                            <p className="lead mb-0">Whether it be conditional or scheduled, having full control over an
+                                array of electrical relays is a MUST in high production gardening today. Using the
+                                configuration editor, you're able to completely customize as many relays as your board
+                                can handle. Update your hardware in REAL TIME!</p>
                         </div>
                     </div>
-                    {/*<div className="row no-gutters pb-4">*/}
-                        {/*<div className="col-lg-6 order-lg-2 text-white showcase-img"*/}
-                             {/*style={{backgroundImage: "url('/timeline.png')"}}>>*/}
-                        {/*</div>*/}
-                        {/*<div className="col-lg-6 order-lg-1 my-auto showcase-text">*/}
-                            {/*<h2>Full Grow Timeline</h2>*/}
-                            {/*<p className="lead mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed*/}
-                                {/*lobortis sem nisi, at molestie sem varius ut. Integer placerat sapien vel nibh*/}
-                                {/*auctor, eget ullamcorper tellus viverra. Suspendisse potenti. Cras ac neque justo.*/}
-                                {/*Integer tempus, urna sit amet facilisis consectetur, ligula risus laoreet nisi,*/}
-                                {/*vitae maximus nisi eros id ante. Vestibulum at felis lorem. Quisque feugiat*/}
-                                {/*vestibulum sem quis faucibus. Pellentesque a molestie est, et tempus augue. Aenean*/}
-                                {/*vitae sapien iaculis, malesuada mauris in, gravida nulla. Nunc mollis mauris diam,*/}
-                                {/*sagittis semper metus congue non. Nam consectetur sollicitudin dolor, non volutpat*/}
-                                {/*justo. Maecenas convallis, tortor id elementum ultricies, mauris lectus facilisis*/}
-                                {/*magna, vel pulvinar arcu lorem ut mi.</p>*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
+                    <div className="row no-gutters pb-4">
+                        <div className="col-lg-6 order-lg-2 text-white showcase-img"
+                             style={{backgroundImage: "url('/timeline.png')"}}>>
+                        </div>
+                        <div className="col-lg-6 order-lg-1 my-auto showcase-text">
+                            <h2>Full Grow Timeline</h2>
+                            <p className="lead mb-0">Keeping track of notes can be hard. Associate timeline events that
+                                stay tied to your individual grow. Reviewing what works and what fails has never been
+                                easier! Monitor things like pH, EC, and nutrient schedules, all with a fully functional
+                                WYSIWYG editor!</p>
+                        </div>
+                    </div>
                 </div>
             </section>
             </body>
