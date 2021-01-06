@@ -19,7 +19,8 @@ function getAll() {
     return fetch(global.apiUrl + `/grows`, requestOptions).then(handleResponse);
 }
 
-function getById(_id) {
+// TODO: left off here 1/5/2021
+function getById(_id, lmi) {
     let tempHeaders = authHeader();
     tempHeaders["x-api-limit"] = 100;
 
