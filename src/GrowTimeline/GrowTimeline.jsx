@@ -137,7 +137,7 @@ export default class GrowDetails extends React.Component {
 
                     <Modal.Footer>
                         <Button variant="primary" onClick={this.handleSave}>
-                            {(this.state.currentEvent._id) ? "Update": "Create"}
+                            {(this.state.currentEvent._id) ? "Update" : "Create"}
                         </Button>
                     </Modal.Footer>
                 </Modal>
