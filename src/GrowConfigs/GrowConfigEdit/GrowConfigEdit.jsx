@@ -10,6 +10,7 @@ import {HTML5Backend} from 'react-dnd-html5-backend';
 
 import "./growConfigDetails.css";
 import "react-input-range/lib/css/index.css";
+import EdiText from "react-editext";
 
 export default class GrowConfigDetails extends React.Component {
     constructor(props) {
@@ -21,7 +22,7 @@ export default class GrowConfigDetails extends React.Component {
         };
 
         this.updateConfiguration = this.updateConfiguration.bind(this);
-        this.updateRelaySchedules= this.updateRelaySchedules.bind(this);
+        this.updateRelaySchedules = this.updateRelaySchedules.bind(this);
     }
 
     componentDidMount() {
@@ -47,12 +48,15 @@ export default class GrowConfigDetails extends React.Component {
             this.setState({
                 config: config,
             });
-        } else {
+        } else if (obj.type === 'humidity')  {
             config.humidityLow = obj.value.min;
             config.humidityHigh = obj.value.max;
             this.setState({
                 config: config,
             });
+        } else {
+            // This check will probably be removed with https://trello.com/c/fgOjs170/79-move-acceptablerange-component-into-a-conditional-relay-ui
+            config.name = obj;
         }
 
         growConfigService.updateById(config);
@@ -78,7 +82,12 @@ export default class GrowConfigDetails extends React.Component {
             <div className="container-fluid">
                 <div className="container">
                     <h4 className="text-white">
-                        {this.state.config.name}
+                        <EdiText
+                            value={this.state.config.name}
+                            type="text"
+                            className="form-control-sm p-0"
+                            submitOnEnter={true}
+                            onSave={this.updateConfiguration}/>
                     </h4>
 
                     <br/>
@@ -135,7 +144,8 @@ export default class GrowConfigDetails extends React.Component {
                                 ? this.state.config.relaySchedules.map((schedule) => (
                                     <div key={schedule.id} className="bg-primary p-3 col-6">
                                         <DndProvider backend={HTML5Backend}>
-                                            <Container schedule={schedule} updateRelaySchedules={this.updateRelaySchedules}/>
+                                            <Container schedule={schedule}
+                                                       updateRelaySchedules={this.updateRelaySchedules}/>
                                         </DndProvider>
                                     </div>
                                 ))
