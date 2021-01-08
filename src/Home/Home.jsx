@@ -42,7 +42,7 @@ export default class App extends React.Component {
                                     interrupting important relay schedules.</p>
                             </div>
                             <div className="">
-                                <a href="#" className="btn btn-primary btn-sm">More Info</a>
+                                <a href="#data" className="btn btn-primary btn-sm">More Info</a>
                             </div>
                         </div>
                     </div>
@@ -56,7 +56,7 @@ export default class App extends React.Component {
                                     systems, you can even control them manually in <strong>real time</strong>!</p>
                             </div>
                             <div className="">
-                                <a href="#" className="btn btn-primary btn-sm">More Info</a>
+                                <a href="#schedule" className="btn btn-primary btn-sm">More Info</a>
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@ export default class App extends React.Component {
                                     you last watered again!</p>
                             </div>
                             <div className="">
-                                <a href="#" className="btn btn-primary btn-sm">More Info</a>
+                                <a href="#timeline" className="btn btn-primary btn-sm">More Info</a>
                             </div>
                         </div>
                     </div>
@@ -91,7 +91,7 @@ export default class App extends React.Component {
                 <div className="container-fluid p-0">
                     <div className="row no-gutters">
 
-                        <div className="col-lg-6 order-lg-2 text-white showcase-img"
+                        <div id="data" className="col-lg-6 order-lg-2 text-white showcase-img"
                              style={{backgroundImage: "url('/data_over_time.png')", objectFit: "fill"}}></div>
                         <div className="col-lg-6 order-lg-1 my-auto showcase-text">
                             <h2>Data Over Time</h2>
@@ -104,7 +104,7 @@ export default class App extends React.Component {
                         </div>
                     </div>
                     <div className="row no-gutters">
-                        <div className="col-lg-6 text-white showcase-img"
+                        <div id="schedule" className="col-lg-6 text-white showcase-img"
                              style={{backgroundImage: "url('/bg-showcase-2.jpg')"}}>>
                         </div>
                         <div className="col-lg-6 my-auto showcase-text">
@@ -116,7 +116,7 @@ export default class App extends React.Component {
                         </div>
                     </div>
                     <div className="row no-gutters pb-4">
-                        <div className="col-lg-6 order-lg-2 text-white showcase-img"
+                        <div  id="timeline" className="col-lg-6 order-lg-2 text-white showcase-img"
                              style={{backgroundImage: "url('/timeline.png')"}}>>
                         </div>
                         <div className="col-lg-6 order-lg-1 my-auto showcase-text">
