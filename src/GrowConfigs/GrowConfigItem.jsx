@@ -1,8 +1,10 @@
 import React from "react";
 import {growConfigService} from '../_services/grow.config.service';
-import InputRange from 'react-input-range';
-import EdiText from "react-editext";
-import TimePicker from 'react-time-picker';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+
+import {
+    faTrash,
+} from '@fortawesome/free-solid-svg-icons'
 
 import "./growConfigs.css";
 import "react-input-range/lib/css/index.css";
@@ -12,73 +14,20 @@ export default class GrowConfigItem extends React.Component {
         super(props);
 
         this.state = {
-            left: 0,
-            config: props.config,
-            tempValue: {min: props.config.tempLow, max: props.config.tempHigh},
-            humidityValue: {min: props.config.humidityLow, max: props.config.humidityHigh},
-            currentLightOn: props.config.lightsOn,
-            currentLightOff: props.config.lightsOff
+            config: props.config
         };
 
-        this.handleTemperatureAndHumidityChange = this.handleTemperatureAndHumidityChange.bind(this);
-        this.handleSaveConfigName = this.handleSaveConfigName.bind(this);
-        this.updateConfiguration = this.updateConfiguration.bind(this);
-        this.onChangeLightOn = this.onChangeLightOn.bind(this);
-        this.onChangeLightOff = this.onChangeLightOff.bind(this);
-        this.finalizeLightSchedule = this.finalizeLightSchedule.bind(this);
+        this.confirmDeleteConfig = this.confirmDeleteConfig.bind(this);
     }
 
-    handleTemperatureAndHumidityChange(obj) {
-        let configObj = this.state.config;
-
-        if (obj.type === 'temperature') {
-            this.setState({
-                tempValue: obj.value
-            });
-
-            configObj.tempLow = obj.value.min;
-            configObj.tempHigh = obj.value.max;
-        } else {
-            this.setState({
-                humidityValue: obj.value
-            });
-
-            configObj.humidityLow = obj.value.min;
-            configObj.humidityHigh = obj.value.max;
+    confirmDeleteConfig() {
+        if (window.confirm("Are you sure you want to delete config: " + this.state.config.name + "?")) {
+            this.deleteConfig()
         }
-
-        this.updateConfiguration(configObj);
     }
 
-    handleSaveConfigName(value) {
-        let configObj = this.state.config;
-        configObj.name = value;
-
-        this.updateConfiguration(configObj);
-    }
-
-    onChangeLightOn(value) {
-        this.setState({
-            currentLightOn: value
-        });
-    }
-
-    onChangeLightOff(value) {
-        this.setState({
-            currentLightOff: value
-        });
-    }
-
-    finalizeLightSchedule() {
-        let configObj = this.state.config;
-        configObj.lightsOn = this.state.currentLightOn;
-        configObj.lightsOff = this.state.currentLightOff;
-
-        this.updateConfiguration(configObj);
-    }
-
-    updateConfiguration(config) {
-        growConfigService.updateById(config);
+    deleteConfig() {
+        growConfigService.deleteConfig(this.state.config._id).then(() => window.location = window.location);
     }
 
     render() {
@@ -86,74 +35,24 @@ export default class GrowConfigItem extends React.Component {
             <div className="col-4">
                 <div className="card">
                     <div className="row">
-                        <div className="col-12">
-                            <EdiText
-                                value={this.state.config.name}
-                                type="text"
-                                className="form-control-lg p-0"
-                                submitOnEnter={true}
-                                onSave={this.handleSaveConfigName}/>
+                        <div className="col-8 m-auto">
+                            <a href={"/configs/" + this.state.config._id}>
+                                {this.state.config.name}
+                            </a>
                         </div>
-                        <div className="col-12">
-                            <div className="mb-4 mt-4 text-left">
-                                Acceptable Temperature
-                            </div>
 
-                            <div className="">
-                                <div className="">
-                                    <InputRange
-                                        maxValue={90}
-                                        minValue={50}
-                                        value={this.state.tempValue}
-                                        onChange={tempValue => this.setState({tempValue})}
-                                        onChangeComplete={value => this.handleTemperatureAndHumidityChange({
-                                            type: 'temperature',
-                                            value: value
-                                        })}/>
-                                </div>
+                        <div className="col-4 mb-2">
+                            <div className="btn btn-danger" onClick={this.confirmDeleteConfig}>
+                                <FontAwesomeIcon icon={faTrash} size="1x"/>
                             </div>
                         </div>
 
-                        <div className="col-12 mb-4">
-                            <div className="mb-4 mt-4 text-left">
-                                Acceptable Humidity
-                            </div>
-
-                            <div className="">
-                                <div className="">
-                                    <InputRange
-                                        maxValue={100}
-                                        minValue={20}
-                                        value={this.state.humidityValue}
-                                        onChange={humidityValue => this.setState({humidityValue})}
-                                        onChangeComplete={value => this.handleTemperatureAndHumidityChange({
-                                            type: 'humidity',
-                                            value: value
-                                        })}/>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="row mt-4">
-                            <div className="col-12">
-                                <label className="mr-2">Lights On: </label>
-
-                                <div className="d-inline-block bg-white form-group ">
-                                    <TimePicker
-                                        value={this.state.currentLightOn}
-                                        onChange={this.onChangeLightOn}
-                                        onClockClose={this.finalizeLightSchedule}/>
-                                </div>
-                            </div>
-                            <div className="col-12">
-                                <label className="mr-2">Lights Off: </label>
-                                <div className="d-inline-block bg-white">
-                                    <TimePicker
-                                        value={this.state.currentLightOff}
-                                        onChange={this.onChangeLightOff}
-                                        onClockClose={this.finalizeLightSchedule}/>
-                                </div>
-                            </div>
+                        <div className="col-12 mt-2">
+                            {
+                                (this.state.config && this.state.config.relaySchedules)
+                                    ? this.state.config.relaySchedules.length
+                                    : 0
+                            } relay control schedules
                         </div>
                     </div>
                 </div>

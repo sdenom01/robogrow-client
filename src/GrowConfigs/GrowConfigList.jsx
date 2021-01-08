@@ -2,7 +2,6 @@ import React from "react";
 import {growConfigService} from '../_services/grow.config.service';
 import "./growConfigs.css";
 import GrowConfigItem from "./GrowConfigItem";
-import GrowConfigItemNEW from "./GrowConfigItemNEW";
 
 export default class GrowConfigList extends React.Component {
     constructor(props) {
@@ -22,13 +21,7 @@ export default class GrowConfigList extends React.Component {
 
     createNewConfig() {
         let defaultConfig = {
-            name: "New Config",
-            lightsOn: "07:15",
-            lightsOff: "21:16",
-            tempLow: 70,
-            tempHigh: 78,
-            humidityLow: 40,
-            humidityHigh: 65
+            name: "New Config"
         }
 
         growConfigService.create(defaultConfig).then(() => window.location = window.location);
@@ -47,7 +40,7 @@ export default class GrowConfigList extends React.Component {
 
                         {this.state.configs.map((config) => {
                                 return (
-                                    <GrowConfigItemNEW key={config._id} config={config}/>
+                                    <GrowConfigItem key={config._id} config={config}/>
                                 )
                             }
                         )}
