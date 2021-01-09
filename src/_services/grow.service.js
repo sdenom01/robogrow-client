@@ -7,6 +7,7 @@ export const growService = {
     updateById,
     endGrowById,
     createNew,
+    getGrowDataEvents,
     getTimelineEvents,
     createNewTimelineEvent,
     updateTimelineEvent,
@@ -18,11 +19,10 @@ function getAll() {
     return fetch(global.apiUrl + `/grows`, requestOptions).then(handleResponse);
 }
 
+// TODO: left off here 1/5/2021
 function getById(_id) {
     let tempHeaders = authHeader();
-    tempHeaders.x_api_limit = 100;
-
-    console.log("heacers: " + JSON.stringify(tempHeaders));
+    tempHeaders["x-api-limit"] = 100;
 
     const requestOptions = {method: 'GET', headers: tempHeaders};
     return fetch(global.apiUrl + `/grows/` + _id, requestOptions).then(handleResponse);
@@ -56,6 +56,14 @@ function createNew(grow) {
     };
 
     return fetch(global.apiUrl + `/grows/`, requestOptions).then(handleResponse);
+}
+
+function getGrowDataEvents(_id, limit) {
+    let headers = authHeader();
+    headers["x-api-limit"] = limit;
+
+    const requestOptions = {method: 'GET', headers: headers};
+    return fetch(global.apiUrl + `/grows/` + _id + `/events`, requestOptions).then(handleResponse);
 }
 
 function getTimelineEvents(_id) {
