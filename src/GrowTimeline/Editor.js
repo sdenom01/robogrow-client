@@ -3,15 +3,17 @@ import {Form} from 'react-bootstrap';
 import {EditorState, convertToRaw} from "draft-js";
 import {Editor} from "react-draft-wysiwyg"
 import draftToHtml from 'draftjs-to-html'
+import {stateFromHTML} from 'draft-js-import-html';
 
 export default class EditorContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             event: props.event,
-            title: (props.event.title) ? props.event.title: "",
-            title: (props.event.imageUrl) ? props.event.imageUrl: "",
-            editorState: EditorState.createEmpty()
+            title: (props.event.title) ? props.event.title : "",
+            imageUrl: (props.event.imageUrl) ? props.event.imageUrl : "",
+            text: (props.event.text) ? props.event.text : "",
+            editorState: (props.event.text) ? EditorState.createWithContent(stateFromHTML(props.event.text)) : EditorState.createEmpty()
         };
 
         this.onTitleChange = this.onTitleChange.bind(this);
@@ -33,6 +35,7 @@ export default class EditorContainer extends React.Component {
 
     updateCurrentEvent() {
         var event = {
+            _id: this.state.event._id,
             title: this.state.title,
             imageUrl: this.state.imageUrl,
             text: draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))

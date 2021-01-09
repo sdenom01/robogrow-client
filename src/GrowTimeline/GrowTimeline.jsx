@@ -17,7 +17,7 @@ import TimelineItem from './TimelineItem';
 
 
 require('react-image-timeline/dist/timeline.css'); // .scss also available
-
+// TODO: This WHOLE class should be reworked..
 export default class GrowDetails extends React.Component {
     constructor(props) {
         super(props);
@@ -114,11 +114,8 @@ export default class GrowDetails extends React.Component {
             );
         } else {
             growService.updateTimelineEvent(growId, eventObj).then(event => {
-                    var events = this.state.events.concat(eventObj);
-                    this.setState({
-                        events: events,
-                        showModal: false
-                    });
+                    // TODO: Ugly AF, need to do this without refreshing
+                    window.location.reload();
                 }
             );
         }
@@ -140,7 +137,7 @@ export default class GrowDetails extends React.Component {
 
                     <Modal.Footer>
                         <Button variant="primary" onClick={this.handleSave}>
-                            Create
+                            {(this.state.currentEvent._id) ? "Update" : "Create"}
                         </Button>
                     </Modal.Footer>
                 </Modal>
