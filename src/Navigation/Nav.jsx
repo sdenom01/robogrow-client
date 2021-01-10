@@ -22,12 +22,24 @@ export default class MyForm extends React.Component {
     }
 
     render() {
+        let renderLogo = <div/>;
+
+        if (window.location.pathname != "/") {
+            console.log(window.location.pathname);
+            renderLogo = <a href="/">
+                <img src="/robogrow_4_gradient_new_shadow.png" alt=""
+                     style={{width: "50px", height: "50px"}}/>
+            </a>;
+        }
+
         if (window.localStorage.currentUser) {
             let user = JSON.parse(window.localStorage.currentUser).user;
 
             return (
                 <nav className="navbar bg-dark fixed-top" role="navigation">
-                    <div className="container-fluid">
+                    <div className="container">
+                        {renderLogo}
+
                         <ul className="nav navbar-nav navbar-expand">
                             <li className="nav-item">
                                 <a href="/grows" className="nav-link border-0 text">Grows</a>
@@ -52,7 +64,9 @@ export default class MyForm extends React.Component {
         } else {
             return (
                 <nav className="navbar bg-dark fixed-top" role="navigation">
-                    <div className="container-fluid">
+                    <div className="container">
+                        {renderLogo}
+
                         <ul className="nav navbar-nav navbar-expand">
                             <li className="nav-item">
                                 <a href="/log" className="nav-link border-0 text">About</a>

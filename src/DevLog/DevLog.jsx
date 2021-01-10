@@ -39,13 +39,14 @@ export default class App extends React.Component {
 
                                     <ul>
                                         <li>
-                                            <a href="#">Raspberry Pi Script</a>
+                                            <a href="https://github.com/sdenom01/robogrow_script_final">Raspberry Pi
+                                                Script</a>
                                         </li>
                                         <li>
-                                            <a href="#">Rest API</a>
+                                            <a href="https://github.com/sdenom01/robogrow-api">Rest API</a>
                                         </li>
                                         <li className="mt-0">
-                                            <a href="#">React Web App</a>
+                                            <a href="https://github.com/sdenom01/robogrow-client">React Web App</a>
                                         </li>
                                     </ul>
 
@@ -212,12 +213,38 @@ export default class App extends React.Component {
                                         <br/>
                                         This logo seems to be simple enough and recognizable at a distance. Also it
                                         embraces the <strong>love and compassion</strong> we all need to put into our
-                                        plants to get the
-                                        best results!
+                                        plants to get the best results!
                                         <br/>
                                         <br/>
                                         I'm feeling really good, everything is starting to feel like it's coming
                                         together.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="col-lg-6 col-md-6 col-sm-12 mb-5">
+                                <img style={{width: "500px"}} src="update_04.png" alt=""/>
+                            </div>
+
+                            <div className="col-lg-6 col-md-6 col-sm-12 mb-5">
+                                <div className="p-4">
+                                    <strong>Hardware Upgrades</strong>
+                                    
+                                    <p>
+                                        Added everything to this nice breadboard, mounted it to the wall.
+                                        <br/>
+                                        <br/>
+
+                                        Got the 120v electrical wiring all laid out nicely with 4 individually
+                                        controllable outlets. Added all the sensors to a 'probe' so that the overall
+                                        design of the board will be more compact.
+                                        <br/>
+                                        <br/>
+                                        Ran an entire crop with this system with full control over
+                                        lights, exhaust, and watering control at the tip of my finger.
+                                        <br/>
+                                        <br/>
+                                        Very awesome!
                                     </p>
                                 </div>
                             </div>

@@ -9,8 +9,6 @@ export default class GrowListItem extends React.Component {
             left: 0,
             grow: props.grow
         };
-
-        this.currentTimeWithinRange = this.currentTimeWithinRange.bind(this);
     }
 
     componentDidMount() {
@@ -34,34 +32,12 @@ export default class GrowListItem extends React.Component {
         return timeNow.getHours() * 60 + timeNow.getMinutes();
     }
 
-    currentTimeWithinRange() {
-        // if (this.state.grow && this.state.grow.config && this.state.grow.config.relaySchedules) {
-        //     // TODO Make this dynamic!
-        //     var startTime = this.state.grow.config.relaySchedules[0].events[0].triggerTime;
-        //     var endTime = this.state.grow.config.relaySchedules[0].events[1].triggerTime;
-        //     var currentDate = new Date();
-        //
-        //     console.log(startTime, endTime, currentDate);
-        //     var now = this.getMinutesNow();
-        //     var start = this.getMinutes('10:00');
-        //     var end = this.getMinutes('2:00');
-        //     if (start > end) end += this.getMinutes('24:00');
-        //
-        //     var isValid = (now > start) && (now < end);
-        //     return (isValid) ? 'ON' : 'OFF';
-        // } else {
-        //     return 'ERR';
-        // }
-    }
-
     normalize(val, max, min) {
         return ((val - min) / (max - min)) * 100;
     }
 
     render() {
         if (this.state.grow.config) {
-            var isLightOn = this.currentTimeWithinRange();
-
             var currentTempWidth = (this.state.grow && this.state.grow.current) ? this.normalize(this.state.grow.current.temp, this.state.grow.config.tempHigh, this.state.grow.config.tempLow) : -666;
             var currentHumidityWidth = (this.state.grow && this.state.grow.current) ? this.normalize(this.state.grow.current.humidity, this.state.grow.config.humidityHigh, this.state.grow.config.humidityLow) : -666;
 
@@ -73,7 +49,7 @@ export default class GrowListItem extends React.Component {
 
                             {(this.state.grow && this.state.grow.current)
                                 ? <div className="row mb-4">
-                                    <div className="col-10">
+                                    <div className="col-12">
                                         <small>Temperature</small>
                                         <div className="progress mb-3">
                                             <div className="progress-bar bg-success text-light p-2"
@@ -94,15 +70,6 @@ export default class GrowListItem extends React.Component {
                                                  aria-valuemax={this.state.grow.config.humidityLow}>
                                                 {this.state.grow.current.humidity}º
                                             </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div className="col-2">
-                                        <div className="rounded bg-light shadow mr-2 p-2 text-center">
-                                            <img src={(isLightOn === 'ON') ? "light_on.png" : "light_off.png"}
-                                                 style={{width: "50px"}}/>
-                                            <h5 style={(isLightOn === 'ON') ? {color: "green"} : {color: "red"}}>{isLightOn}</h5>
                                         </div>
                                     </div>
                                 </div>
