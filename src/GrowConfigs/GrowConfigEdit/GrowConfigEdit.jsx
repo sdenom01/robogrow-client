@@ -1,8 +1,6 @@
 import React from "react";
 import {growConfigService} from '../../_services/grow.config.service';
 
-import InputRange from 'react-input-range';
-
 import ConfigRelayWrapper from "./ConfigRelayWrapper";
 
 import "./growConfigDetails.css";
@@ -37,23 +35,12 @@ export default class GrowConfigDetails extends React.Component {
 
     updateConfigName(name) {
         this.state.config.name = name;
-        this.updateConfiguration()
+        this.updateConfiguration();
     }
 
-    updateConfigRelays(schedule) {
-        console.log("PARENT METHOD");
-        // this.state.config.relaySchedules.forEach((s) => {
-        //     if (s.id == schedule.id) {
-        //         s = schedule;
-        //         console.log("Found schedule match, updating...");
-        //
-        //         growConfigService.updateById(this.state.config).then((res) => {
-        //             this.setState({
-        //                 config: this.state.config
-        //             })
-        //         });
-        //     }
-        // });
+    updateConfigRelays(schedules) {
+        this.state.config.schedules = schedules;
+        this.updateConfiguration();
     }
 
     render() {

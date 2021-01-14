@@ -1,12 +1,5 @@
 import React from "react";
-import {growConfigService} from '../../_services/grow.config.service';
-
 import InputRange from 'react-input-range';
-
-import {Container} from './Container';
-
-import {DndProvider} from 'react-dnd';
-import {HTML5Backend} from 'react-dnd-html5-backend';
 
 import "./growConfigDetails.css";
 import "react-input-range/lib/css/index.css";
@@ -20,9 +13,6 @@ export default class ConfigRelayWrapper extends React.Component {
         super(props);
 
         this.state = {};
-
-        this.updateConfiguration = this.updateConfiguration.bind(this);
-        this.updateConfigRelays = this.updateConfigRelays.bind(this);
     }
 
     componentDidMount() {
@@ -33,56 +23,40 @@ export default class ConfigRelayWrapper extends React.Component {
         })
     }
 
-    updateConfiguration(obj) {
-        let config = this.state.config;
-        if (obj.type === 'temperature') {
-            config.tempLow = obj.value.min;
-            config.tempHigh = obj.value.max;
-            this.setState({
-                config: config,
-            });
-        } else if (obj.type === 'humidity') {
-            config.humidityLow = obj.value.min;
-            config.humidityHigh = obj.value.max;
-            this.setState({
-                config: config,
-            });
-        } else {
-            // This check will probably be removed with https://trello.com/c/fgOjs170/79-move-acceptablerange-component-into-a-conditional-relay-ui
-            config.name = obj;
-        }
-
-        growConfigService.updateById(config);
-    }
-
-    updateConfigRelays(schedule) {
-        // TODO: Call up to parent function
-    }
-
-
     changeStatus(sIndex, eIndex, e) {
-        this.state.schedules[sIndex].events[eIndex].status = (e.target.checked) ? 0: 1;
-        // updateRelayEvent(event);
+        this.state.schedules[sIndex].events[eIndex].status = (e.target.checked) ? 0 : 1;
+        this.props.updateConfigRelays(this.state.schedules);
     };
 
     saveDescription(sIndex, eIndex, e) {
-        // event.Description = e;
-        // updateRelayEvent(event);
+        this.state.schedules[sIndex].events[eIndex].Description = e;
+        this.props.updateConfigRelays(this.state.schedules);
     };
 
     saveTriggerTime(sIndex, eIndex, e) {
-        // event.triggerTime = e;
-        // updateRelayEvent(event);
+        this.state.schedules[sIndex].events[eIndex].triggerTime = e;
+        this.props.updateConfigRelays(this.state.schedules);
     };
 
-    updateRelayEvent(sIndex, eIndex, e) {
-        // updateEvent(index, event);
-    };
+    dragConditionalRange(sIndex, cIndex, value) {
+        let tempSchedules = this.state.schedules;
+        tempSchedules[sIndex].conditions[cIndex].minValue = value.min;
+        tempSchedules[sIndex].conditions[cIndex].maxValue = value.max;
+
+        this.setState({
+            schedules: tempSchedules
+        })
+    }
+
+    updateConditionalRange(sIndex, cIndex, value) {
+        this.props.updateConfigRelays(this.state.schedules);
+    }
 
     confirmDelete(sIndex, eIndex, e) {
-        // if (window.confirm("Are you sure you want to delete event: " + event.Description + "?")) {
-        //     // deleteEvent(index)
-        // }
+        if (window.confirm("Are you sure you want to delete event: " + this.state.schedules[sIndex].events[eIndex].Description + "?")) {
+            this.state.schedules[sIndex].events.splice(eIndex, 1);
+            this.props.updateConfigRelays(this.state.schedules);
+        }
     };
 
     createScheduledRelayRows(schedule, sIndex) {
@@ -104,7 +78,7 @@ export default class ConfigRelayWrapper extends React.Component {
                                 type="text"
                                 className="form-control-sm p-0"
                                 submitOnEnter={true}
-                                onSave={() => this.saveDescription(sIndex, eIndex)}/>
+                                onSave={(e) => this.saveDescription(sIndex, eIndex, e)}/>
                         </div>
 
                         <div className="col-4 mt-auto mb-auto">
@@ -113,11 +87,11 @@ export default class ConfigRelayWrapper extends React.Component {
                                 type="text"
                                 className="form-control-sm p-0"
                                 submitOnEnter={true}
-                                onSave={() => this.saveTriggerTime(sIndex, eIndex)}/>
+                                onSave={(e) => this.saveTriggerTime(sIndex, eIndex, e)}/>
                         </div>
 
                         <div className="col-1 mt-auto mb-auto">
-                            <div className="btn btn-danger" onClick={() => this.confirmDelete(event)}>
+                            <div className="btn btn-danger" onClick={() => this.confirmDelete(sIndex, eIndex)}>
                                 <FontAwesomeIcon icon={faTrash} size="1x"/>
                             </div>
                         </div>
@@ -142,11 +116,8 @@ export default class ConfigRelayWrapper extends React.Component {
                                         maxValue={100}
                                         minValue={0}
                                         value={{min: condition.minValue, max: condition.maxValue}}
-                                        onChange={tempValue => this.setState({tempValue})}
-                                        onChangeComplete={value => this.updateConfiguration({
-                                            type: 'temperature',
-                                            value: value
-                                        })}/>
+                                        onChange={value => this.dragConditionalRange(sIndex, cIndex, value)}
+                                        onChangeComplete={value => this.updateConditionalRange(sIndex, cIndex, value)}/>
                                 </div>
                             </div>
                         </div>
