@@ -46,8 +46,8 @@ export default class GrowConfigDetails extends React.Component {
     render() {
         if (this.state.config) {
             return (
-                <div className="container-fluid">
-                    <div className="container">
+                <div className="container">
+                    <div className="pl-4">
                         <h4 className="text-white">
                             <EdiText
                                 value={this.state.config.name}
