@@ -1,7 +1,7 @@
 import React from "react";
 import {growService} from '../_services/grow.service';
 import "./growDetails.css";
-import {Alert, Breadcrumb} from 'react-bootstrap';
+import {Alert, Breadcrumb, Spinner} from 'react-bootstrap';
 
 import {Line} from 'react-chartjs-2';
 
@@ -12,6 +12,7 @@ export default class GrowDataGraphs extends React.Component {
         super(props);
         this.state = {
             growId: props.growId,
+            isLoading: true,
             rangeIndex: 2,
             primaryData: []
         };
@@ -73,6 +74,10 @@ export default class GrowDataGraphs extends React.Component {
     }
 
     fetchDataEventsWithLimit(limit, index) {
+        this.setState({
+            isLoading: true
+        });
+
         growService.getGrowDataEvents(this.state.growId, limit).then(events => {
                 let labels = [];
                 let dataTemp = [];
@@ -92,6 +97,7 @@ export default class GrowDataGraphs extends React.Component {
                     primaryData: this.parsePrimaryGraphData(labels, dataTemp, dataHumidity),
                     secondaryData: this.parseSecondaryGraphData(labels, dataInfrared, dataLux),
                     currentEvent: events[events.length - 1],
+                    isLoading: false,
                     rangeIndex: index
                 })
             }
@@ -158,7 +164,7 @@ export default class GrowDataGraphs extends React.Component {
     }
 
     render() {
-        if (this.state.currentEvent) {
+        if (!this.state.isLoading) {
             let hrStyle = {
                 border: 0,
                 clear: "both",
@@ -326,6 +332,13 @@ export default class GrowDataGraphs extends React.Component {
                             </div>
                         </div>
                     </div>
+                </div>
+            );
+        } else if (this.state.isLoading) {
+            return (
+                <div className="card w-25 mr-auto ml-auto mt-4">
+                    Loading ...
+                    <Spinner style={{width: "50px", height: "50px"}} animation="border" className="mr-auto ml-auto mt-3" variant="success" />
                 </div>
             );
         } else {

@@ -8,6 +8,7 @@ export default class GrowDetails extends React.Component {
         super(props);
         this.state = {
             grow: {},
+            isLoading: true,
             primaryData: []
         };
     }
@@ -17,11 +18,8 @@ export default class GrowDetails extends React.Component {
 
         growService.getById(growId).then(grow => {
                 this.setState({
-                    grow: grow
-                }, function () {
-                    console.log("SET PRIMARY AND SECONDARY DATA");
-                    console.log(this.state.primaryData);
-                    console.log(this.state.secondaryData);
+                    grow: grow,
+                    isLoading: false
                 })
             }
         )
@@ -78,7 +76,7 @@ export default class GrowDetails extends React.Component {
                 </div>
             );
         } else {
-            return (<div>Sorry! That grow cannot be found!</div>);
+            return (<div/>);
         }
     }
 }
