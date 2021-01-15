@@ -1,12 +1,7 @@
 import React from "react";
 import {growConfigService} from '../../_services/grow.config.service';
 
-import InputRange from 'react-input-range';
-
-import {Container} from './Container';
-
-import {DndProvider} from 'react-dnd';
-import {HTML5Backend} from 'react-dnd-html5-backend';
+import ConfigRelayWrapper from "./ConfigRelayWrapper";
 
 import "./growConfigDetails.css";
 import "react-input-range/lib/css/index.css";
@@ -16,144 +11,66 @@ export default class GrowConfigDetails extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            left: 0,
-            config: {}
-        };
+        this.state = {};
 
+        this.updateConfigName = this.updateConfigName.bind(this);
+        this.updateConfigRelays = this.updateConfigRelays.bind(this);
         this.updateConfiguration = this.updateConfiguration.bind(this);
-        this.updateRelaySchedules = this.updateRelaySchedules.bind(this);
     }
 
     componentDidMount() {
         const {configId} = this.props.match.params;
 
         growConfigService.getById(configId).then(config => {
-            let tempValue = {min: config.tempLow, max: config.tempHigh}
-            let humidityValue = {min: config.humidityLow, max: config.humidityHigh};
 
             this.setState({
-                config: config,
-                tempValue: tempValue,
-                humidityValue: humidityValue
+                config: config
             })
         })
     }
 
-    updateConfiguration(obj) {
-        let config = this.state.config;
-        if (obj.type === 'temperature') {
-            config.tempLow = obj.value.min;
-            config.tempHigh = obj.value.max;
-            this.setState({
-                config: config,
-            });
-        } else if (obj.type === 'humidity')  {
-            config.humidityLow = obj.value.min;
-            config.humidityHigh = obj.value.max;
-            this.setState({
-                config: config,
-            });
-        } else {
-            // This check will probably be removed with https://trello.com/c/fgOjs170/79-move-acceptablerange-component-into-a-conditional-relay-ui
-            config.name = obj;
-        }
-
-        growConfigService.updateById(config);
+    updateConfiguration() {
+        growConfigService.updateById(this.state.config);
     }
 
-    updateRelaySchedules(schedule) {
-        this.state.config.relaySchedules.forEach((s) => {
-            if (s.id == schedule.id) {
-                s = schedule;
-                console.log("Found schedule match, updating...");
+    updateConfigName(name) {
+        this.state.config.name = name;
+        this.updateConfiguration();
+    }
 
-                growConfigService.updateById(this.state.config).then((res) => {
-                    this.setState({
-                        config: this.state.config
-                    })
-                });
-            }
-        });
+    updateConfigRelays(schedules) {
+        this.state.config.schedules = schedules;
+        this.updateConfiguration();
     }
 
     render() {
-        return (
-            <div className="container-fluid">
-                <div className="container">
-                    <h4 className="text-white">
-                        <EdiText
-                            value={this.state.config.name}
-                            type="text"
-                            className="form-control-sm p-0"
-                            submitOnEnter={true}
-                            onSave={this.updateConfiguration}/>
-                    </h4>
-
-                    <br/>
-
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="text-white">
-                                Acceptable Temperature
-                            </div>
-
-                            <div className="card">
-                                <div className="card-body">
-                                    <InputRange
-                                        maxValue={90}
-                                        minValue={50}
-                                        value={this.state.tempValue}
-                                        onChange={tempValue => this.setState({tempValue})}
-                                        onChangeComplete={value => this.updateConfiguration({
-                                            type: 'temperature',
-                                            value: value
-                                        })}/>
-                                </div>
-                            </div>
-                        </div>
+        if (this.state.config) {
+            return (
+                <div className="container-fluid">
+                    <div className="container">
+                        <h4 className="text-white">
+                            <EdiText
+                                value={this.state.config.name}
+                                type="text"
+                                className="form-control-sm p-0"
+                                submitOnEnter={true}
+                                onSave={this.updateConfigName}/>
+                        </h4>
                     </div>
 
-                    <div className="row mt-4">
-                        <div className="col-12">
-                            <div className="text-white">
-                                Acceptable Humidity
-                            </div>
+                    <div className="m-4">
+                        <h4 className="pb-4">
+                            Relay Controls
+                        </h4>
 
-                            <div className="card">
-                                <div className="card-body">
-                                    <InputRange
-                                        maxValue={100}
-                                        minValue={20}
-                                        value={this.state.humidityValue}
-                                        onChange={humidityValue => this.setState({humidityValue})}
-                                        onChangeComplete={value => this.updateConfiguration({
-                                            type: 'humidity',
-                                            value: value
-                                        })}/>
-                                </div>
-                            </div>
-                        </div>
+                        <ConfigRelayWrapper
+                            schedules={this.state.config.relaySchedules}
+                            updateConfigRelays={this.updateConfigRelays}/>
                     </div>
                 </div>
-
-                <div className="">
-                    <div className="row m-4">
-                        {
-                            (this.state.config.relaySchedules)
-                                ? this.state.config.relaySchedules.map((schedule) => (
-                                    <div key={schedule.id} className="bg-primary p-3 col-6">
-                                        <DndProvider backend={HTML5Backend}>
-                                            <Container schedule={schedule}
-                                                       updateRelaySchedules={this.updateRelaySchedules}/>
-                                        </DndProvider>
-                                    </div>
-                                ))
-                                : <div/>
-                        }
-                    </div>
-                </div>
-            </div>
-        );
+            );
+        } else {
+            return <div/>;
+        }
     }
 }
