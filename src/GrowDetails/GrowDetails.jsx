@@ -37,12 +37,15 @@ export default class GrowDetails extends React.Component {
         return timeNow.getHours() * 60 + timeNow.getMinutes();
     }
 
-    handleEndGrow() {
-        growService.endGrowById(this.state.grow);
+    toggleGrowStatus() {
+        growService.toggleGrowById(this.state.grow);
         window.location = "/grows";
     }
 
     render() {
+        let statusBtnDisplay = (this.state.grow.isActive) ? "End Grow" : "Restart Grow";
+        let btnClass = (this.state.grow.isActive) ? "btn btn-danger p-2 mr-2" : "btn btn-success p-2 mr-2";
+
         if (this.state.grow._id) {
             return (
                 <div className="container">
@@ -63,11 +66,12 @@ export default class GrowDetails extends React.Component {
                                             }}>
                                         Timeline
                                     </button>
-                                    <button className="btn btn-danger p-2 mr-2"
+
+                                    <button className={btnClass}
                                             onClick={() => {
-                                                this.handleEndGrow();
+                                                this.toggleGrowStatus();
                                             }}>
-                                        End Grow
+                                        {statusBtnDisplay}
                                     </button>
                                 </div>
                             </div>

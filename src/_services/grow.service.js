@@ -5,7 +5,7 @@ export const growService = {
     getAll,
     getById,
     updateById,
-    endGrowById,
+    toggleGrowById: toggleGrowById,
     createNew,
     getGrowDataEvents,
     getTimelineEvents,
@@ -38,14 +38,16 @@ function updateById(grow) {
     return fetch(global.apiUrl + `/grows/` + grow._id, requestOptions).then(handleResponse);
 }
 
-function endGrowById(grow) {
+function toggleGrowById(grow) {
+    grow.isActive = !grow.isActive;
+
     const requestOptions = {
         method: 'PUT',
         headers: authHeader(),
         body: JSON.stringify(grow),
     };
 
-    return fetch(global.apiUrl + `/grows/` + grow._id + `/end`, requestOptions).then(handleResponse);
+    return fetch(global.apiUrl + `/grows/` + grow._id, requestOptions).then(handleResponse);
 }
 
 function createNew(grow) {
