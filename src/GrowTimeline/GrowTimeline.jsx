@@ -72,24 +72,28 @@ export default class GrowDetails extends React.Component {
         }, this.handleShow);
     }
 
-    deleteEvent(event) {
-        const {growId} = this.props.match.params;
+    deleteEvent() {
+        if (window.confirm("Delete timeline event?")) {
+            const {growId} = this.props.match.params;
 
-        let foundEventIndex = -1;
-        this.state.events.forEach((event, i) => {
-            if (event._id === event._id) {
-                foundEventIndex = i;
-            }
-        });
+            let foundEventIndex = -1;
+            this.state.events.forEach((event, i) => {
+                if (event._id === event._id) {
+                    foundEventIndex = i;
+                }
+            });
 
-        growService.deleteTimelineEvent(growId, event._id).then(event => {
-                var events = (foundEventIndex !== -1) ? this.state.events.splice(foundEventIndex, 1) : this.state.events;
+            growService.deleteTimelineEvent(growId, this.state.currentEvent._id).then(event => {
+                    var events = (foundEventIndex !== -1) ? this.state.events.splice(foundEventIndex, 1) : this.state.events;
 
-                this.setState({
-                    events: events
-                })
-            }
-        );
+                    this.setState({
+                        events: events
+                    })
+
+                    window.location.reload();
+                }
+            );
+        }
     }
 
     handleSave() {
@@ -122,6 +126,24 @@ export default class GrowDetails extends React.Component {
     }
 
     render() {
+        let hasEvent = (this.state.currentEvent && this.state.currentEvent._id) ? true : false;
+
+        let btnRender = (hasEvent)
+            ? <Modal.Footer>
+                <Button variant="danger" onClick={this.deleteEvent}>
+                    Delete
+                </Button>
+
+                <Button variant="primary" onClick={this.handleSave}>
+                    Update
+                </Button>
+            </Modal.Footer>
+            : <Modal.Footer>
+                <Button variant="primary" onClick={this.handleSave}>
+                    Create
+                </Button>
+            </Modal.Footer>
+
         return (
             <div className="mt-5">
                 <Modal show={this.state.showModal}
@@ -135,11 +157,7 @@ export default class GrowDetails extends React.Component {
                         <Editor event={this.state.currentEvent} updateCurrentEvent={this.updateCurrentEvent}/>
                     </Modal.Body>
 
-                    <Modal.Footer>
-                        <Button variant="primary" onClick={this.handleSave}>
-                            {(this.state.currentEvent._id) ? "Update" : "Create"}
-                        </Button>
-                    </Modal.Footer>
+                    {btnRender}
                 </Modal>
 
 
@@ -155,7 +173,6 @@ export default class GrowDetails extends React.Component {
                             this.state.events.map((event) => {
                                 return (
                                     <TimelineItem event={event}
-                                                  deleteEvent={this.deleteEvent}
                                                   editEvent={this.editEvent}/>
                                 );
                             })

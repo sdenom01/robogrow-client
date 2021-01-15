@@ -65,21 +65,14 @@ export default class GrowDetails extends React.Component {
                         <div/>
                 }
 
-                <h3>{this.state.event.title}</h3>
-
-                <p dangerouslySetInnerHTML={{__html: this.state.event.text}}/>
-
-                <div className="row mt-2 mr-1 ml-1">
-                    <Button size="sm" variant="danger" onClick={this.deleteEvent}>
-                        <FontAwesomeIcon className="" icon={faTrash} size="1x"/>
-                    </Button>
-
-                    <div className="col"/>
-
+                <div className="row pr-2 pl-2">
+                    <h3 className="mr-auto">{this.state.event.title}</h3>
                     <Button size="sm" onClick={this.editEvent}>
                         <FontAwesomeIcon icon={faEdit} size="1x"/>
                     </Button>
                 </div>
+
+                <p dangerouslySetInnerHTML={{__html: this.state.event.text}}/>
             </TimelineItem>
         );
     }
