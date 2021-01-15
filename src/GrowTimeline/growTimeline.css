@@ -25,9 +25,15 @@ footer {
 }
 
 .public-DraftStyleDefault-block {
-    min-height: 300px;
-    margin-top: 0px;
+    margin: 0px;
+}
+
+.public-DraftEditor-content {
     padding: 10px;
+}
+
+li:nth-child(3) {
+    margin-top: 0px!important;
 }
 
 .rdw-editor-main {
