@@ -2,14 +2,18 @@ import React from "react";
 import {growService} from '../_services/grow.service';
 import GrowDataGraphs from "./GrowDataGraphs";
 import "./growDetails.css";
+import GrowEdit from "../GrowEdit/GrowEdit";
 
 export default class GrowDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             grow: {},
-            primaryData: []
+            primaryData: [],
+            showModal: false
         };
+
+        this.closeModal = this.closeModal.bind(this);
     }
 
     componentDidMount() {
@@ -42,38 +46,52 @@ export default class GrowDetails extends React.Component {
         window.location = "/grows";
     }
 
+    showModal() {
+        this.setState({
+            showModal: true
+        })
+    }
+
+    closeModal() {
+        this.setState({
+            showModal: false
+        });
+    }
+
     render() {
         if (this.state.grow._id) {
             return (
-                <div className="container">
-                    <div className="jumbotron">
-                        <div className="row">
-                            <div className="ml-auto mr-auto row">
-                                <h3 className="mt-auto mb-auto">{this.state.grow.name}</h3>
-                                <div className="ml-4">
-                                    <button className="btn btn-info p-2 mr-2"
-                                            onClick={() => {
-                                                window.location = "/grows/" + this.props.match.params.growId + "/edit"
-                                            }}>
-                                        Edit
-                                    </button>
-                                    <button className="btn p-2 mr-2"
-                                            onClick={() => {
-                                                window.location = "/grows/" + this.props.match.params.growId + "/timeline"
-                                            }}>
-                                        Timeline
-                                    </button>
-                                    <button className="btn btn-danger p-2 mr-2"
-                                            onClick={() => {
-                                                this.handleEndGrow();
-                                            }}>
-                                        End Grow
-                                    </button>
+                <div>
+                    <GrowEdit show={this.state.showModal} closeModal={this.closeModal} grow={this.state.grow}/>
+
+                    <div className="container">
+                        <div className="jumbotron">
+                            <div className="row">
+                                <div className="ml-auto mr-auto row">
+                                    <h3 className="mt-auto mb-auto">{this.state.grow.name}</h3>
+                                    <div className="ml-4">
+                                        <button className="btn btn-info p-2 mr-2"
+                                                onClick={() => this.showModal()}>
+                                            Edit
+                                        </button>
+                                        <button className="btn p-2 mr-2"
+                                                onClick={() => {
+                                                    window.location = "/grows/" + this.props.match.params.growId + "/timeline"
+                                                }}>
+                                            Timeline
+                                        </button>
+                                        <button className="btn btn-danger p-2 mr-2"
+                                                onClick={() => {
+                                                    this.handleEndGrow();
+                                                }}>
+                                            End Grow
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <GrowDataGraphs growId={this.state.grow._id}/>
+                            <GrowDataGraphs growId={this.state.grow._id}/>
+                        </div>
                     </div>
                 </div>
             );
