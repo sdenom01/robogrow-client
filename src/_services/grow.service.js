@@ -5,8 +5,9 @@ export const growService = {
     getAll,
     getById,
     updateById,
-    toggleGrowById: toggleGrowById,
+    toggleGrowById,
     createNew,
+    deleteGrow,
     getGrowDataEvents,
     getTimelineEvents,
     createNewTimelineEvent,
@@ -58,6 +59,15 @@ function createNew(grow) {
     };
 
     return fetch(global.apiUrl + `/grows/`, requestOptions).then(handleResponse);
+}
+
+function deleteGrow(_id) {
+    const requestOptions = {
+        method: 'DELETE',
+        headers: authHeader()
+    };
+
+    return fetch(global.apiUrl + `/grows/` + _id, requestOptions).then(handleResponse);
 }
 
 function getGrowDataEvents(_id, limit) {

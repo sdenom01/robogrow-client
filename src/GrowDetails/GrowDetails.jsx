@@ -38,41 +38,66 @@ export default class GrowDetails extends React.Component {
     }
 
     toggleGrowStatus() {
-        growService.toggleGrowById(this.state.grow);
-        window.location = "/grows";
+        growService.toggleGrowById(this.state.grow).then(() => {
+            window.location = "/grows";
+        });
+    }
+
+    deleteGrow() {
+        growService.deleteGrow(this.state.grow._id).then(() => {
+            window.location = "/grows";
+        });
     }
 
     render() {
-        let statusBtnDisplay = (this.state.grow.isActive) ? "End Grow" : "Restart Grow";
-        let btnClass = (this.state.grow.isActive) ? "btn btn-danger p-2 mr-2" : "btn btn-success p-2 mr-2";
+        let btnRender = (this.state.grow.isActive)
+            ? <button className="btn btn-danger p-2 mr-2"
+                      onClick={() => {
+                          this.toggleGrowStatus();
+                      }}>
+                End Grow
+            </button>
+            : <div>
+                <button className="btn btn-success p-2 mr-2"
+                        onClick={() => {
+                            this.toggleGrowStatus();
+                        }}>
+                    Restart Grow
+                </button>
+                <button className="btn btn-danger p-2 mr-2"
+                        onClick={() => {
+                            this.toggleGrowStatus();
+                        }}>
+                    Delete Grow
+                </button>
+            </div>;
 
         if (this.state.grow._id) {
             return (
                 <div className="container">
                     <div className="jumbotron">
                         <div className="row">
-                            <div className="ml-auto mr-auto row">
-                                <h3 className="mt-auto mb-auto">{this.state.grow.name}</h3>
-                                <div className="ml-4">
-                                    <button className="btn btn-info p-2 mr-2"
-                                            onClick={() => {
-                                                window.location = "/grows/" + this.props.match.params.growId + "/edit"
-                                            }}>
-                                        Edit
-                                    </button>
-                                    <button className="btn p-2 mr-2"
-                                            onClick={() => {
-                                                window.location = "/grows/" + this.props.match.params.growId + "/timeline"
-                                            }}>
-                                        Timeline
-                                    </button>
+                            <div className="container-fluid">
+                                <div className="row">
+                                    <h3 className="col-6">{this.state.grow.name}</h3>
+                                    <div className="ml-auto">
+                                        <div className="row">
+                                            <button className="btn btn-info p-2 mr-2"
+                                                    onClick={() => {
+                                                        window.location = "/grows/" + this.props.match.params.growId + "/edit"
+                                                    }}>
+                                                Edit
+                                            </button>
+                                            <button className="btn p-2 mr-2"
+                                                    onClick={() => {
+                                                        window.location = "/grows/" + this.props.match.params.growId + "/timeline"
+                                                    }}>
+                                                Timeline
+                                            </button>
 
-                                    <button className={btnClass}
-                                            onClick={() => {
-                                                this.toggleGrowStatus();
-                                            }}>
-                                        {statusBtnDisplay}
-                                    </button>
+                                            {btnRender}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
