@@ -62,7 +62,7 @@ export default class ConfigRelayWrapper extends React.Component {
     createScheduledRelayRows(schedule, sIndex) {
         return (
             schedule.events.map((event, eIndex) => (
-                <div className="card">
+                <div key={"condition-" + eIndex} className="card">
                     <div className="row pr-4">
                         <Form.Check
                             className="col-2 mt-auto mb-auto"
@@ -104,7 +104,8 @@ export default class ConfigRelayWrapper extends React.Component {
     createConditionalRelayRows(schedule, sIndex) {
         return (
             schedule.conditions.map(
-                (condition, cIndex) => (<div className="row">
+                (condition, cIndex) => (
+                    <div key={"condition-" + cIndex} className="row">
                         <div className="col-12">
                             <div className="card">
                                 <div className="text-white">
@@ -135,7 +136,7 @@ export default class ConfigRelayWrapper extends React.Component {
                         this.state.schedules.map((schedule, sIndex) => {
                             if (schedule.type == 0) {
                                 return (
-                                    <div className="col-6">
+                                    <div key={"schedule-" + sIndex} className="col-6">
                                         {schedule.name}
                                         {
                                             this.createConditionalRelayRows(schedule, sIndex)
@@ -144,7 +145,7 @@ export default class ConfigRelayWrapper extends React.Component {
                                 )
                             } else {
                                 return (
-                                    <div className="col-6">
+                                    <div key={"schedule-" + sIndex} className="col-6">
                                         {schedule.name}
                                         {
                                             this.createScheduledRelayRows(schedule, sIndex)
