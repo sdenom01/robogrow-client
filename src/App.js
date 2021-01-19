@@ -33,8 +33,7 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
 
-        global.apiUrl = `http://localhost:3000`;
-        // global.apiUrl = `https://api.robogrow.io`;
+        global.apiUrl = process.env.REACT_APP_APIURL;
 
         this.state = {
             currentUser: null
