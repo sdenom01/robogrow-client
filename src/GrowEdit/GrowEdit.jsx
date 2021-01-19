@@ -1,7 +1,7 @@
 import React from "react";
 import {growService} from '../_services/grow.service';
 import {growConfigService} from '../_services/grow.config.service';
-import {Form, Dropdown, Button} from 'react-bootstrap';
+import {Form, Dropdown, Button, Modal} from 'react-bootstrap';
 
 import "./growEdit.css";
 
@@ -9,7 +9,7 @@ export default class GrowEdit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            grow: {},
+            grow: props.grow,
             configs: [],
             selectedConfig: {
                 name: 'Not Selected'
@@ -18,39 +18,27 @@ export default class GrowEdit extends React.Component {
 
         this.handleCurrentNameChange = this.handleCurrentNameChange.bind(this);
         this.handleNewSelectedConfig = this.handleNewSelectedConfig.bind(this);
-
         this.handleGrowCreateOrUpdate = this.handleGrowCreateOrUpdate.bind(this);
     }
 
     componentDidMount() {
-        const {growId} = this.props.match.params;
+        growConfigService.getAll().then(configs => {
+            let selectedConfig = {
+                name: 'Not Selected'
+            };
 
-        if (growId) {
-            growService.getById(growId).then(grow => {
-                growConfigService.getAll().then(configs => {
-                    let selectedConfig;
+            configs.forEach((config) => {
+                if (this.state.grow._id && config._id === this.state.grow.config._id) {
+                    selectedConfig = config;
+                }
+            });
 
-                    configs.forEach((config) => {
-                        if (config._id === grow.config._id) {
-                            selectedConfig = config;
-                        }
-                    });
-
-                    this.setState({
-                        grow,
-                        configs,
-                        selectedConfig,
-                        currentName: grow.name
-                    });
-                })
-            })
-        } else {
-            growConfigService.getAll().then(configs => {
-                this.setState({
-                    configs
-                });
-            })
-        }
+            this.setState({
+                configs,
+                selectedConfig,
+                currentName: this.state.grow.name
+            });
+        })
     }
 
     handleNewSelectedConfig(newConfigId) {
@@ -86,11 +74,6 @@ export default class GrowEdit extends React.Component {
             grow.config = this.state.selectedConfig;
         }
 
-        // TODO: Implement Plants / Notes
-        grow.numPlants = 0;
-
-        // TODO: Implement growth stages (derived from config)
-        grow.growStage = 'N/A';
         let bundle = {
             _id: grow._id,
             growConfigId: grow.config._id,
@@ -100,12 +83,10 @@ export default class GrowEdit extends React.Component {
         };
 
         if (grow && grow._id) {
-            console.log("UPDATE");
             growService.updateById(bundle).then(grow => {
                 window.location = '/grows/' + bundle._id;
             });
         } else {
-            console.log("CREATE");
             growService.createNew(bundle).then(grow => {
                 window.location = '/grows';
             });
@@ -114,39 +95,55 @@ export default class GrowEdit extends React.Component {
 
     render() {
         return (
-            <div className="ml-auto mr-auto jumbotron" style={{width: "530px"}}>
-                <Form className="" onSubmit={this.handleGrowCreateOrUpdate}>
-                    < Form.Group controlId="forEditGrow">
-                        <Form.Label>Grow Name</Form.Label>
-                        <Form.Control type="text" defaultValue={this.state.grow.name}
-                                      onChange={this.handleCurrentNameChange} value={this.state.currentName}/>
-                    </Form.Group>
+            <Modal show={this.props.show}
+                   onHide={this.props.closeModal}
+                   size="lg">
+                <Modal.Header>
+                    <Modal.Title>
+                        {
+                            this.state.grow._id
+                                ? "Update Grow"
+                                : "New Grow"
+                        }
+                    </Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                    <div className="ml-auto mr-auto" style={{width: "530px"}}>
+                        <Form className="" onSubmit={this.handleGrowCreateOrUpdate}>
+                            < Form.Group controlId="forEditGrow">
+                                <Form.Label>Grow Name</Form.Label>
+                                <Form.Control type="text" defaultValue={this.state.grow.name}
+                                              onChange={this.handleCurrentNameChange} value={this.state.currentName}/>
+                            </Form.Group>
 
 
-                    <Form.Group controlId="forEditGrow">
-                        <Form.Label>Selected Configuration</Form.Label>
+                            <Form.Group controlId="forEditGrow">
+                                <Form.Label>Selected Configuration</Form.Label>
 
-                        <Dropdown onSelect={this.handleNewSelectedConfig}>
-                            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                {this.state.selectedConfig.name}
-                            </Dropdown.Toggle>
+                                <Dropdown onSelect={this.handleNewSelectedConfig}>
+                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                        {this.state.selectedConfig.name}
+                                    </Dropdown.Toggle>
 
-                            <Dropdown.Menu>
-                                {
-                                    this.state.configs.map((config) => {
-                                        return (
-                                            <Dropdown.Item key={config._id}
-                                                           eventKey={config._id}>{config.name}</Dropdown.Item>
-                                        );
-                                    })
-                                }
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </Form.Group>
+                                    <Dropdown.Menu>
+                                        {
+                                            this.state.configs.map((config) => {
+                                                return (
+                                                    <Dropdown.Item key={config._id}
+                                                                   eventKey={config._id}>{config.name}</Dropdown.Item>
+                                                );
+                                            })
+                                        }
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </Form.Group>
 
-                    <Button variant="primary" type="submit">Save</Button>{' '}
-                </Form>
-            </div>
+                            <Button variant="primary" type="submit">Save</Button>{' '}
+                        </Form>
+                    </div>
+                </Modal.Body>
+            </Modal>
         );
     }
 }
