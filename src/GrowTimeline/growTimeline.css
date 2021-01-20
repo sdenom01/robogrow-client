@@ -26,6 +26,7 @@ footer {
 
 .public-DraftStyleDefault-block {
     margin: 0px;
+    min-height: 0px;
 }
 
 .public-DraftEditor-content {
