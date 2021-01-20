@@ -87,6 +87,8 @@ export default class GrowEdit extends React.Component {
                 window.location = '/grows/' + bundle._id;
             });
         } else {
+            bundle.isActive = true;
+
             growService.createNew(bundle).then(grow => {
                 window.location = '/grows';
             });

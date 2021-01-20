@@ -190,153 +190,164 @@ export default class GrowDataGraphs extends React.Component {
             ];
 
             let self = this;
-            return (
-                <div className="pt-3">
-                    <div className="row pl-5">
-                        {
-                            rangeOptions.map((option, index) => {
-                                let clazz = (self.state.rangeIndex === index) ? "text-secondary" : "";
+            if (this.state.currentEvent) {
+                return (
+                    <div className="pt-3">
+                        <div className="row pl-5">
+                            {
+                                rangeOptions.map((option, index) => {
+                                    let clazz = (self.state.rangeIndex === index) ? "text-secondary" : "";
 
-                                return (
-                                    <Breadcrumb.Item className="mt-0" key={option.display} onClick={() => {
-                                        this.fetchDataEventsWithLimit(option.limit, index)
-                                    }}>
-                                        <div className={clazz}>{option.display}</div>
-                                    </Breadcrumb.Item>
-                                )
-                            })
-                        }
-                    </div>
-
-                    <div className="row">
-                        <div className="col-10 ">
-                            <div className="ml-auto mr-auto ">
-                                <Line
-                                    data={this.state.primaryData}
-                                    width={100}
-                                    height={300}
-                                    options={{
-                                        maintainAspectRatio: false,
-                                        scales: {
-                                            xAxes: [{
-                                                display: true,
-                                                gridLines: {
-                                                    color: "#727272"
-                                                },
-                                                scaleLabel: {
-                                                    display: true,
-                                                    labelString: 'Day',
-                                                    fontColor: 'white'
-                                                },
-                                                ticks: {
-                                                    fontColor: "white", // this here
-                                                }
-                                            }],
-                                            yAxes: [{
-                                                display: true,
-                                                gridLines: {
-                                                    color: "#727272"
-                                                },
-                                                scaleLabel: {
-                                                    display: true,
-                                                    labelString: 'Value',
-                                                    fontColor: 'white'
-                                                },
-                                                ticks: {
-                                                    fontColor: "white", // this here
-                                                }
-                                            }]
-                                        },
-                                        legend: {
-                                            labels: {
-                                                fontColor: 'white'
-                                            }
-                                        }
-                                    }}/>
-                            </div>
-                            <div className="ml-auto mr-auto mt-4">
-                                <Line
-                                    data={this.state.secondaryData}
-                                    width={100}
-                                    height={300}
-                                    options={{
-                                        maintainAspectRatio: false,
-                                        scales: {
-                                            xAxes: [{
-                                                display: true,
-                                                gridLines: {
-                                                    color: "#727272"
-                                                },
-                                                scaleLabel: {
-                                                    display: true,
-                                                    labelString: 'Day',
-                                                    fontColor: 'white'
-                                                },
-                                                ticks: {
-                                                    fontColor: "white", // this here
-                                                }
-                                            }],
-                                            yAxes: [{
-                                                display: true,
-                                                gridLines: {
-                                                    color: "#727272"
-                                                },
-                                                scaleLabel: {
-                                                    display: true,
-                                                    labelString: 'Value',
-                                                    fontColor: 'white'
-                                                },
-                                                ticks: {
-                                                    fontColor: "white", // this here
-                                                }
-                                            }]
-                                        },
-                                        legend: {
-                                            labels: {
-                                                fontColor: 'white'
-                                            }
-                                        }
-                                    }}/>
-                            </div>
+                                    return (
+                                        <Breadcrumb.Item className="mt-0" key={option.display} onClick={() => {
+                                            this.fetchDataEventsWithLimit(option.limit, index)
+                                        }}>
+                                            <div className={clazz}>{option.display}</div>
+                                        </Breadcrumb.Item>
+                                    )
+                                })
+                            }
                         </div>
 
-                        <div className="col-2 m-auto">
-                            <div className="row mb-4">
-                                <div className="col-12 p-2">
-                                    <div className="p-2 text-center">
-                                        <h5>Temperature</h5>
-                                        <h1 className="text-info">{this.state.currentEvent.temp}&#730;</h1>
-                                    </div>
+                        <div className="row">
+                            <div className="col-10 ">
+                                <div className="ml-auto mr-auto ">
+                                    <Line
+                                        data={this.state.primaryData}
+                                        width={100}
+                                        height={300}
+                                        options={{
+                                            maintainAspectRatio: false,
+                                            scales: {
+                                                xAxes: [{
+                                                    display: true,
+                                                    gridLines: {
+                                                        color: "#727272"
+                                                    },
+                                                    scaleLabel: {
+                                                        display: true,
+                                                        labelString: 'Day',
+                                                        fontColor: 'white'
+                                                    },
+                                                    ticks: {
+                                                        fontColor: "white", // this here
+                                                    }
+                                                }],
+                                                yAxes: [{
+                                                    display: true,
+                                                    gridLines: {
+                                                        color: "#727272"
+                                                    },
+                                                    scaleLabel: {
+                                                        display: true,
+                                                        labelString: 'Value',
+                                                        fontColor: 'white'
+                                                    },
+                                                    ticks: {
+                                                        fontColor: "white", // this here
+                                                    }
+                                                }]
+                                            },
+                                            legend: {
+                                                labels: {
+                                                    fontColor: 'white'
+                                                }
+                                            }
+                                        }}/>
                                 </div>
-                                <div className="col-12 p-2">
-                                    <div className="mt-4 p-2 text-center">
-                                        <h5>Humidity</h5>
-                                        <h1 className="text-info">{this.state.currentEvent.humidity}%</h1>
-                                    </div>
+                                <div className="ml-auto mr-auto mt-4">
+                                    <Line
+                                        data={this.state.secondaryData}
+                                        width={100}
+                                        height={300}
+                                        options={{
+                                            maintainAspectRatio: false,
+                                            scales: {
+                                                xAxes: [{
+                                                    display: true,
+                                                    gridLines: {
+                                                        color: "#727272"
+                                                    },
+                                                    scaleLabel: {
+                                                        display: true,
+                                                        labelString: 'Day',
+                                                        fontColor: 'white'
+                                                    },
+                                                    ticks: {
+                                                        fontColor: "white", // this here
+                                                    }
+                                                }],
+                                                yAxes: [{
+                                                    display: true,
+                                                    gridLines: {
+                                                        color: "#727272"
+                                                    },
+                                                    scaleLabel: {
+                                                        display: true,
+                                                        labelString: 'Value',
+                                                        fontColor: 'white'
+                                                    },
+                                                    ticks: {
+                                                        fontColor: "white", // this here
+                                                    }
+                                                }]
+                                            },
+                                            legend: {
+                                                labels: {
+                                                    fontColor: 'white'
+                                                }
+                                            }
+                                        }}/>
                                 </div>
+                            </div>
 
-                                <hr style={hrStyle}/>
-
-                                <div className="col-12 p-2">
-                                    <div className="p-2 text-center">
-                                        <h5>Infrared</h5>
-                                        <h1 className="text-info">{this.state.currentEvent.infrared}</h1>
+                            <div className="col-2 m-auto">
+                                <div className="row mb-4">
+                                    <div className="col-12 p-2">
+                                        <div className="p-2 text-center">
+                                            <h5>Temperature</h5>
+                                            <h1 className="text-info">{this.state.currentEvent.temp}&#730;</h1>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="col-12 p-2">
-                                    <div className="mt-4 p-2 text-center">
-                                        <h5>Lux</h5>
-                                        <h1 className="text-info">{this.state.currentEvent.lux}</h1>
+                                    <div className="col-12 p-2">
+                                        <div className="mt-4 p-2 text-center">
+                                            <h5>Humidity</h5>
+                                            <h1 className="text-info">{this.state.currentEvent.humidity}%</h1>
+                                        </div>
+                                    </div>
+
+                                    <hr style={hrStyle}/>
+
+                                    <div className="col-12 p-2">
+                                        <div className="p-2 text-center">
+                                            <h5>Infrared</h5>
+                                            <h1 className="text-info">{this.state.currentEvent.infrared}</h1>
+                                        </div>
+                                    </div>
+                                    <div className="col-12 p-2">
+                                        <div className="mt-4 p-2 text-center">
+                                            <h5>Lux</h5>
+                                            <h1 className="text-info">{this.state.currentEvent.lux}</h1>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            );
+                );
+            } else {
+                return (
+                    <div className="container mt-5">
+                        <Alert className="w-50 ml-auto mr-auto text-center h5" variant="warning">
+                            Sorry!
+                            <hr/>
+                            Doesn't look like anything has been reported yet!
+                        </Alert>
+                    </div>);
+            }
         } else if (this.state.isLoading) {
             return (
-                <div className="card w-25 mr-auto ml-auto mt-4">
+                <div className="card w-50 mr-auto ml-auto mt-4">
                     Loading ...
                     <Spinner style={{width: "50px", height: "50px"}} animation="border" className="mr-auto ml-auto mt-3" variant="success" />
                 </div>
