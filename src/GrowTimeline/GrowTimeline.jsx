@@ -83,11 +83,14 @@ export default class GrowDetails extends React.Component {
         });
 
         growService.deleteTimelineEvent(growId, event._id).then(event => {
-                var events = (foundEventIndex !== -1) ? this.state.events.splice(foundEventIndex, 1) : this.state.events;
+                // var events = (foundEventIndex !== -1) ? this.state.events.splice(foundEventIndex, 1) : this.state.events;
+                //
+                // this.setState({
+                //     events: events
+                // })
 
-                this.setState({
-                    events: events
-                })
+                // TODO: Ugly AF, need to do this without refreshing
+                window.location.reload();
             }
         );
     }
@@ -105,11 +108,14 @@ export default class GrowDetails extends React.Component {
 
         if (!eventObj._id) {
             growService.createNewTimelineEvent(growId, eventObj).then(event => {
-                    var events = this.state.events.concat(eventObj);
-                    this.setState({
-                        events: events,
-                        showModal: false
-                    });
+                    // var events = this.state.events.concat(eventObj);
+                    // this.setState({
+                    //     events: events,
+                    //     showModal: false
+                    // });
+
+                    // TODO: Ugly AF, need to do this without refreshing
+                    window.location.reload();
                 }
             );
         } else {

@@ -28,7 +28,7 @@ export default class App extends React.Component {
 
                         <br/>
 
-                        <a className="btn btn-primary" href="#">Let's build together!</a>
+                        <a className="btn btn-primary" href="/register">Let's build together!</a>
                     </div>
                 </div>
 
