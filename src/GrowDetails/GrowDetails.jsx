@@ -2,7 +2,6 @@ import React from "react";
 import {growService} from '../_services/grow.service';
 import GrowDataGraphs from "./GrowDataGraphs";
 import "./growDetails.css";
-import GrowEdit from "../GrowEdit/GrowEdit";
 
 export default class GrowDetails extends React.Component {
     constructor(props) {
@@ -10,7 +9,8 @@ export default class GrowDetails extends React.Component {
         this.state = {
             grow: {},
             primaryData: [],
-            showModal: false
+            showModal: false,
+            isLoading: true
         };
 
         this.closeModal = this.closeModal.bind(this);
@@ -21,11 +21,8 @@ export default class GrowDetails extends React.Component {
 
         growService.getById(growId).then(grow => {
                 this.setState({
-                    grow: grow
-                }, function () {
-                    console.log("SET PRIMARY AND SECONDARY DATA");
-                    console.log(this.state.primaryData);
-                    console.log(this.state.secondaryData);
+                    grow: grow,
+                    isLoading: false
                 })
             }
         )
@@ -123,7 +120,7 @@ export default class GrowDetails extends React.Component {
                 </div>
             );
         } else {
-            return (<div>Sorry! That grow cannot be found!</div>);
+            return (<div/>);
         }
     }
 }
