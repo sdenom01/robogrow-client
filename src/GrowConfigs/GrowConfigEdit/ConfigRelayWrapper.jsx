@@ -60,44 +60,50 @@ export default class ConfigRelayWrapper extends React.Component {
     };
 
     createScheduledRelayRows(schedule, sIndex) {
+        console.log(schedule);
+        console.log(sIndex);
+
         return (
-            schedule.events.map((event, eIndex) => (
-                <div key={"condition-" + eIndex} className="card">
-                    <div className="row pr-4">
-                        <Form.Check
-                            className="col-2 mt-auto mb-auto"
-                            type="switch"
-                            id={eIndex + "-" + event.id}
-                            label=""
-                            defaultChecked={(event.status == 0) ? true : false}
-                            onChange={(e) => this.changeStatus(sIndex, eIndex, e)}/>
+            schedule.events.map((event, eIndex) => {
+                console.log("schedule-" + sIndex + "-event-" + eIndex);
+                return (
+                    <div key={"schedule-" + sIndex + "-event-" + eIndex} className="card">
+                        <div className="row pr-4">
+                            <Form.Check
+                                className="col-2 mt-auto mb-auto"
+                                type="switch"
+                                id={sIndex + "-" + eIndex + "-" + event.id}
+                                label=""
+                                defaultChecked={(event.status == 0) ? true : false}
+                                onChange={(e) => this.changeStatus(sIndex, eIndex, e)}/>
 
-                        <div className="col-5 mt-auto mb-auto">
-                            <EdiText
-                                value={event.Description}
-                                type="text"
-                                className="form-control-sm p-0"
-                                submitOnEnter={true}
-                                onSave={(e) => this.saveDescription(sIndex, eIndex, e)}/>
-                        </div>
+                            <div className="col-5 mt-auto mb-auto">
+                                <EdiText
+                                    value={event.Description}
+                                    type="text"
+                                    className="form-control-sm p-0"
+                                    submitOnEnter={true}
+                                    onSave={(e) => this.saveDescription(sIndex, eIndex, e)}/>
+                            </div>
 
-                        <div className="col-4 mt-auto mb-auto">
-                            <EdiText
-                                value={event.triggerTime}
-                                type="text"
-                                className="form-control-sm p-0"
-                                submitOnEnter={true}
-                                onSave={(e) => this.saveTriggerTime(sIndex, eIndex, e)}/>
-                        </div>
+                            <div className="col-4 mt-auto mb-auto">
+                                <EdiText
+                                    value={event.triggerTime}
+                                    type="text"
+                                    className="form-control-sm p-0"
+                                    submitOnEnter={true}
+                                    onSave={(e) => this.saveTriggerTime(sIndex, eIndex, e)}/>
+                            </div>
 
-                        <div className="col-1 mt-auto mb-auto">
-                            <div className="btn btn-danger" onClick={() => this.confirmDelete(sIndex, eIndex)}>
-                                <FontAwesomeIcon icon={faTrash} size="1x"/>
+                            <div className="col-1 mt-auto mb-auto">
+                                <div className="btn btn-danger" onClick={() => this.confirmDelete(sIndex, eIndex)}>
+                                    <FontAwesomeIcon icon={faTrash} size="1x"/>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            ))
+                )
+            })
         );
     }
 
@@ -105,7 +111,7 @@ export default class ConfigRelayWrapper extends React.Component {
         return (
             schedule.conditions.map(
                 (condition, cIndex) => (
-                    <div key={"condition-" + cIndex} className="row">
+                    <div key={"schedule-" + sIndex + "-condition-" + cIndex} className="row">
                         <div className="col-12">
                             <div className="card">
                                 <div className="text-white">
