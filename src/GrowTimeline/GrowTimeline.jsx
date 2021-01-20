@@ -78,7 +78,7 @@ export default class GrowDetails extends React.Component {
 
             let foundEventIndex = -1;
             this.state.events.forEach((event, i) => {
-                if (event._id === event._id) {
+                if (event._id === this.state.currentEvent._id) {
                     foundEventIndex = i;
                 }
             });
@@ -87,10 +87,10 @@ export default class GrowDetails extends React.Component {
                     var events = (foundEventIndex !== -1) ? this.state.events.splice(foundEventIndex, 1) : this.state.events;
 
                     this.setState({
-                        events: events
-                    })
-
-                    window.location.reload();
+                        events: events,
+                        currentEvent: {},
+                        showModal: false
+                    });
                 }
             );
         }
@@ -109,6 +109,8 @@ export default class GrowDetails extends React.Component {
 
         if (!eventObj._id) {
             growService.createNewTimelineEvent(growId, eventObj).then(event => {
+                    eventObj._id = event._id;
+                
                     var events = this.state.events.concat(eventObj);
                     this.setState({
                         events: events,
@@ -117,9 +119,26 @@ export default class GrowDetails extends React.Component {
                 }
             );
         } else {
+            let foundEventIndex = -1;
+            this.state.events.forEach((event, i) => {
+                if (event._id === this.state.currentEvent._id) {
+                    foundEventIndex = i;
+                }
+            });
+
             growService.updateTimelineEvent(growId, eventObj).then(event => {
-                    // TODO: Ugly AF, need to do this without refreshing
-                    window.location.reload();
+                    eventObj._id = event._id;
+
+                    let events = this.state.events;
+                    if (foundEventIndex !== -1) {
+                        events[foundEventIndex] = eventObj;
+                    }
+
+                    this.setState({
+                        events: events,
+                        currentEvent: {},
+                        showModal: false
+                    });
                 }
             );
         }
