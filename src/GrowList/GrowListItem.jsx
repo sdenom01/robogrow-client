@@ -7,7 +7,8 @@ export default class GrowListItem extends React.Component {
 
         this.state = {
             left: 0,
-            grow: props.grow
+            grow: props.grow,
+            isActive: props.isActive
         };
     }
 
@@ -38,50 +39,48 @@ export default class GrowListItem extends React.Component {
 
     render() {
         if (this.state.grow.config) {
-            var currentTempWidth = (this.state.grow && this.state.grow.current) ? this.normalize(this.state.grow.current.temp, this.state.grow.config.tempHigh, this.state.grow.config.tempLow) : -666;
-            var currentHumidityWidth = (this.state.grow && this.state.grow.current) ? this.normalize(this.state.grow.current.humidity, this.state.grow.config.humidityHigh, this.state.grow.config.humidityLow) : -666;
-
             return (
-                <div className="col-sm-8 col-md-8">
+                <div className="col-sm-12 col-md-12 m-1 grow-tab-row card">
                     <a href={"/grows/" + this.state.grow._id}>
-                        <div className="p-3 shadow">
-                            <h5 className="text-center">{this.state.grow.name}</h5>
+                        <div className="row">
+                            <div className="col-6 text-left">
+                                <h5 className="mt-auto">{this.state.grow.name}</h5>
+                            </div>
+                            {
+                                (this.state.grow && this.state.grow.current)
+                                    ? <div className="col-6 row">
+                                        <div className="col-3">
+                                            <small className="text-secondary">Temperature</small>
 
-                            {(this.state.grow && this.state.grow.current)
-                                ? <div className="row mb-4">
-                                    <div className="col-12">
-                                        <small>Temperature</small>
-                                        <div className="progress mb-3">
-                                            <div className="progress-bar bg-success text-light p-2"
-                                                 style={{width: currentTempWidth + "%"}} role="progressbar"
-                                                 aria-valuenow={this.state.grow.current.temp}
-                                                 aria-valuemin={this.state.grow.config.tempLow}
-                                                 aria-valuemax={this.state.grow.config.tempHigh}>
-                                                {this.state.grow.current.temp}º
+                                            <div className="text-success">
+                                                {this.state.grow.current.temp}°
                                             </div>
                                         </div>
+                                        <div className="col-3">
+                                            <small className="text-secondary">Humidity</small>
 
-                                        <small>Humidity</small>
-                                        <div className="progress mb-3">
-                                            <div className="progress-bar bg-info text-light p-2"
-                                                 style={{width: currentHumidityWidth + "%"}} role="progressbar"
-                                                 aria-valuenow={this.state.grow.current.humidity}
-                                                 aria-valuemin={this.state.grow.config.humidityHigh}
-                                                 aria-valuemax={this.state.grow.config.humidityLow}>
-                                                {this.state.grow.current.humidity}º
+                                            <div className="text-info">
+                                                {this.state.grow.current.humidity}%
+                                            </div>
+                                        </div>
+                                        <div className="col-3">
+                                            <small className="text-secondary">lux</small>
+
+                                            <div className="text-warning">
+                                                {this.state.grow.current.lux}
+                                            </div>
+                                        </div>
+                                        <div className="col-3">
+                                            <small className="text-secondary">Infrared</small>
+
+                                            <div className="text-danger">
+                                                {this.state.grow.current.infrared}
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                : <div className="row mb-4">
-                                    <div className="col-12">
-                                        <div className="jumbotron text-center">
-                                            <h2>
-                                                Must sync Raspberry Pi
-                                            </h2>
-                                        </div>
+                                    : <div className="col-6">
+                                        No current event
                                     </div>
-                                </div>
                             }
                         </div>
                     </a>

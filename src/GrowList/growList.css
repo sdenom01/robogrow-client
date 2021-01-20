@@ -33,3 +33,19 @@ a:hover {
         display: none;
     }
 }
+
+.grow-tab-wrapper {
+    border-radius: 5px 5px 5px 5px;
+    background: #181b1e;
+    padding-bottom: 1px;
+}
+
+.grow-tab-row {
+
+}
+
+.nav-item.nav-link.active {
+    background: #272B30 !important;
+    border-color: #272B30;
+    border-bottom-color: transparent;
+}

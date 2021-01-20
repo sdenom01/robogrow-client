@@ -15,8 +15,11 @@ export const growService = {
     deleteTimelineEvent
 };
 
-function getAll() {
-    const requestOptions = {method: 'GET', headers: authHeader()};
+function getAll(isActive) {
+    let tempHeaders = authHeader();
+    tempHeaders["x-api-active"] = isActive;
+
+    const requestOptions = {method: 'GET', headers: tempHeaders};
     return fetch(global.apiUrl + `/grows`, requestOptions).then(handleResponse);
 }
 

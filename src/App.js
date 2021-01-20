@@ -20,7 +20,7 @@ import HomePage from './Home/Home';
 import DevLog from './DevLog/DevLog';
 import RegisterPage from './Register/Register';
 import LoginPage from './Login/Login';
-import GrowList from "./GrowList/GrowList";
+import GrowList from "./GrowList/GrowListWrapper";
 import GrowDetails from "./GrowDetails/GrowDetails";
 import GrowTimeline from "./GrowTimeline/GrowTimeline";
 import GrowEdit from "./GrowEdit/GrowEdit";

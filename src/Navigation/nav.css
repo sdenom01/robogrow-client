@@ -23,12 +23,6 @@
     color: black;
 }
 
-/* Active/current link */
-.topnav a.active {
-    background-color: #2196F3;
-    color: white;
-}
-
 /* Style the input container */
 .topnav .login-container {
     float: right;
