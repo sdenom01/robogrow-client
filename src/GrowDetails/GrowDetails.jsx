@@ -2,14 +2,18 @@ import React from "react";
 import {growService} from '../_services/grow.service';
 import GrowDataGraphs from "./GrowDataGraphs";
 import "./growDetails.css";
+import GrowEdit from "../GrowEdit/GrowEdit";
 
 export default class GrowDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             grow: {},
-            primaryData: []
+            primaryData: [],
+            showModal: false
         };
+
+        this.closeModal = this.closeModal.bind(this);
     }
 
     componentDidMount() {
@@ -46,6 +50,18 @@ export default class GrowDetails extends React.Component {
     deleteGrow() {
         growService.deleteGrow(this.state.grow._id).then(() => {
             window.location = "/grows";
+        });
+    }
+
+    showModal() {
+        this.setState({
+            showModal: true
+        })
+    }
+
+    closeModal() {
+        this.setState({
+            showModal: false
         });
     }
 
@@ -100,9 +116,9 @@ export default class GrowDetails extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <GrowDataGraphs growId={this.state.grow._id}/>
+                            <GrowDataGraphs growId={this.state.grow._id}/>
+                        </div>
                     </div>
                 </div>
             );
